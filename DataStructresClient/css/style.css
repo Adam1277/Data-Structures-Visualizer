@@ -1,0 +1,75 @@
+#box{
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+}
+
+
+
+
+html{
+    font-family: monospace;
+}
+
+body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    height: 100vh;
+}
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+header{
+    text-align: center;
+}
+#text-area-container{
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+}
+#text-area{
+    height: 400px;
+    width: 200px;
+    background-color: transparent;
+    border-width: thick;
+    border-color: black;
+    position: fixed;
+}
+footer{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    padding: 10px;
+    margin-top: auto;
+}
+.Des-item{
+    display: inline-block;
+    padding: 10px;
+    text-align: center;
+}
+#next-step{
+    padding: 18px;
+    display: flex;
+    justify-content: center;
+}
+#choice-container{
+    padding: 18px;
+    display: flex;
+    justify-content: center;
+}
+.Button-C{
+    padding: 0 10px 0 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
