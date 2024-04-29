@@ -3,10 +3,10 @@
     height: 100px;
     margin: 20px;
 }
-
-
-
-
+#Node-Button-Container{
+    justify-content: center;
+    display: flex;
+}
 html{
     font-family: monospace;
 }
@@ -62,9 +62,8 @@ footer{
     padding: 18px;
     display: flex;
     justify-content: center;
-    position: absolute;
-    top: 68%;
-    left: 41%;
+    position: relative;
+    top: 40%;
 }
 #choice-container{
     padding: 18px;

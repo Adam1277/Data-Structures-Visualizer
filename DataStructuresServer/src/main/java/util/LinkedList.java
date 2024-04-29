@@ -1,4 +1,4 @@
-package service;
+package util;
 
 // Node class and constructor to create nodes
 class Node{

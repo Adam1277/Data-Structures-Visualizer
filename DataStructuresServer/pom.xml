@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.service</groupId>
-    <artifactId>spamDetector</artifactId>
+    <artifactId>DataStructure</artifactId>
     <version>1.0</version>
-    <name>spamDetector</name>
+    <name>Visualizer</name>
     <packaging>war</packaging>
 
     <properties>
