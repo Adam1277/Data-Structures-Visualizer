@@ -2,6 +2,7 @@
     width: 100px;
     height: 100px;
     margin: 20px;
+    position: absolute;
 }
 #Node-Button-Container{
     justify-content: center;
@@ -43,7 +44,8 @@ header{
     background-color: transparent;
     border-width: thick;
     border-color: black;
-    position: fixed;
+    position: absolute;
+    top: 20%;
 }
 footer{
     width: 100%;
@@ -63,7 +65,7 @@ footer{
     display: flex;
     justify-content: center;
     position: relative;
-    top: 40%;
+    top: 50.3%;
 }
 #choice-container{
     padding: 18px;

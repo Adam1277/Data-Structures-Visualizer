@@ -1,4 +1,14 @@
 function stacks(){
+
+    // An stack of 6 elements
+    let atackArray = new Array(6);
+
+    // To set the container of PUSH, next step and POP to fixed
+    let stepsContainer = document.getElementById("next-step");
+    stepsContainer.style.position = "relative";
+    stepsContainer.style.justifyContent = "centre";
+    stepsContainer.style.alignItems = "centre";
+
     // To initialize some basics on the Stack Data Structure
     let area = document.getElementById("text-area");
     area.textContent = "Stacks use a FILO (First in last out) " +
@@ -48,38 +58,47 @@ function stacks(){
 
     // Now on Node creation, a box will be created with a random data value
     // Creating the UI Node box
-    let insertButton = document.getElementById("Create-Node");
+    let createNodes = document.getElementById("Create-Node");
+    let mainStructure =  document.getElementById("Main-Data-Structure");
 
-    insertButton.addEventListener("click",function(){
-        let box = document.getElementById("box");
+    createNodes.addEventListener("click",function(){
+        let box = document.createElement("div");
         box.style.background = "grey";
         box.style.borderColor = "black"; // not working
         box.style.width = "100px"; // not working
         box.style.height = "50px";
-    })
+        mainStructure.appendChild(box);
 
-    // Event listener for the Push button to insert the node into the stack
-    pushButton.addEventListener("click", function (){
 
-        // Make a POST request to the backend
-        fetch("http://localhost:8080/api/structure", requestOptions)
-            .then(response =>{
-                if (!response.ok){
-                    throw new Error("Network Error for Push button POST request");
-                }
-                return response.json();
+        pushButton.addEventListener("click", function (){
+            // Make a POST request to the backend, when the node has been created
+            let url = "http://localhost:8080/DataStructure-1.0/api/structure/stack";
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify("new node")
             })
-            .then(data => {
-                console.log('Response:', data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+                .then(response=>response.json())
+                .then(data =>{
+                    console.log("Successful node creation");
+                })
+                .catch((error) =>{
+                    console.error("Error " + error);
+                });
+
+            // TODO: Put some data in the boxes
+
+            // Now to change the subsequent UI
+            box.style.background = "blue";
+            box.style.position = "relative"
+            box.style.left = "45%";
+            box.style.width = "15%"
+        })
+
+
     })
-
-
-
-
 
 }
 
