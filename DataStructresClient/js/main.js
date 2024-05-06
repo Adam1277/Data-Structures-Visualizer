@@ -64,7 +64,8 @@ function stacks(){
     // Now on Node creation, a box will be created with a random data value
     // Creating the UI Node box
     let createNodes = document.getElementById("Create-Node");
-    let mainStructure =  document.getElementById("Main-Data-Structure");
+    let mainStructure =  document.getElementById("Main-Data-Structure");let fullStack = false;
+    let nodeCreated = false;
 
     // On click of the Create Node button
     createNodes.addEventListener("click",function(){
@@ -80,31 +81,13 @@ function stacks(){
         box.style.width = "100px";
         mainStructure.appendChild(box);
         lastCreatedNode = box;
+        nodeCreated = true;
     })
 
     pushButton.addEventListener("click", function (){
-        // Make a POST request to the backend, when the node has been created
-        // This is to facilitate a real stack on the backend
-        let url = "http://localhost:8080/DataStructure-1.0/api/structure/stack";
-        fetch(url,{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify("push node")
-        })
-            .then(response=>response.json())
-            .then(data =>{
-                console.log("Successful node push");
-            })
-            .catch((error) =>{
-                console.error("Error " + error);
-            });
-
-
         // TODO: Put some data in the boxes
 
-        if (lastCreatedNode && currentIndex < TopPXArray.length){
+        if (lastCreatedNode && currentIndex < TopPXArray.length && nodeCreated === true){
             lastCreatedNode.style.background = "red";
             lastCreatedNode.style.position = "absolute";
             lastCreatedNode.style.top = TopPXArray[currentIndex];
@@ -118,38 +101,29 @@ function stacks(){
         }else{
             area.innerText = "MAXIMUM number of nodes!!"
             currentIndex = 0;
+            console.log("Stack is full")
         }
+        nodeCreated = false;
     })
 
     popButton.addEventListener("click", function (){
-        // To update the data structure in the backend
-        let url = "http://localhost:8080/DataStructure-1.0/api/structure/stack";
-        fetch(url,{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify("pop node")
-        })
-            .then(response=>response.json())
-            .then(data =>{
-                console.log("Successful node pop");
-            })
-            .catch((error) =>{
-                console.error("Error " + error);
+        if (counter > 5){ // To fix multiple clicks
+            counter = 4;
+        }if(counter === 5){ // To delete the stack nodes
+            let divsToRemove = mainStructure.querySelectorAll("div");
+            divsToRemove.forEach(function (div) {
+                div.parentNode.removeChild(div);
             });
-
-        //lastCreatedNode.style.background = "black";
-        //lastCreatedNode.style.top = "10%";
-        //lastCreatedNode.style.left = "80%";
-
+            listOFNodes = []; // Reset listOFNodes to an empty array
+        }
+        counter++;
         if (counter < 0){counter = 0;}
-        console.log("Delete Counter :" + counter);
+        console.log("POP counter: " + counter);
         let selectNode = listOFNodes[counter];
         selectNode.style.background = "black";
         selectNode.style.top = "10%";
         selectNode.style.left = "80%";
-        counter++;
+        nodeCreated = false;
     })
 
 }
