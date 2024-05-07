@@ -15,12 +15,13 @@ function stacks(){
 
     // To initialize some basics on the Stack Data Structure
     let area = document.getElementById("text-area");
-    area.textContent = "Stacks use a FILO (First in last out) " +
+    let generalMessage = "Stacks use a FILO (First in last out) " +
         "procedure with accompanying nodes. The first subsequent node to be placed"
         + " on the stack will be the last node out.\n\n"
         + "Stacks use PUSH (to add a top element)"
         + " or POP (to remove a top element)\n\n"
         + "Imagine a stack like plates on top of one another."
+    area.value = generalMessage;
 
     // Creating the push button and placing it beside the next step button
     let pushButton = document.createElement("button");
@@ -66,7 +67,7 @@ function stacks(){
     let createNodes = document.getElementById("Create-Node");
     let mainStructure =  document.getElementById("Main-Data-Structure");let fullStack = false;
     let nodeCreated = false;
-    let NodeInteraction = false;
+    let popBool = false;
 
     // On click of the Create Node button
     createNodes.addEventListener("click",function(){
@@ -75,6 +76,8 @@ function stacks(){
         stepsContainer.style.left = "48.4%";
         stepsContainer.style.right = "50%";
 
+        area.value = generalMessage;
+
         if (counter === 5){
             while (mainStructure.firstChild) {
                 mainStructure.removeChild(mainStructure.firstChild);
@@ -82,38 +85,51 @@ function stacks(){
             listOFNodes = [];
             currentIndex = 0;
             counter = 5;
+        }else if(popBool === true){
+            mainStructure.removeChild(lastCreatedNode);
+            counter = counter - 1;
+            listOFNodes[counter] = null;
         }
 
         // Created Nodes not in the current Stack yet
         let box = document.createElement("div");
-        box.style.background = "black";
-        box.style.height = "60px";
-        box.style.width = "100px";
+        box.style.display = "flex";
+        box.style.backgroundColor = "white";
+        box.style.height = "40px";
+        box.style.width = "110px";
+        box.innerText = "Data Node " + counter;
+        box.style.alignItems = "centre";
+        box.style.lineHeight = "37px";
+        box.style.border = "2px solid black";
+        box.style.borderRadius = "10px";
+
         mainStructure.appendChild(box);
         lastCreatedNode = box;
         nodeCreated = true;
+        popBool = false;
+        console.log("Node created, at counter: " + counter);
     })
 
     pushButton.addEventListener("click", function (){
         // TODO: Put some data in the boxes
         if(nodeCreated === false){
-            area.textContent = "No node created";
+            area.value = "No node created";
         }
 
         if (lastCreatedNode && currentIndex < TopPXArray.length && nodeCreated === true){
-            lastCreatedNode.style.background = "red";
+            lastCreatedNode.style.background = "grey";
             lastCreatedNode.style.position = "absolute";
             lastCreatedNode.style.top = TopPXArray[currentIndex];
             lastCreatedNode.style.left = "502px";
-            lastCreatedNode.style.borderColor = "green";
-            lastCreatedNode.style.borderWidth = "10px";
+            lastCreatedNode.style.borderColor = "red";
+            lastCreatedNode.style.borderWidth = "5px";
             listOFNodes[counter] = lastCreatedNode;
             console.log("counter: " + counter);
             counter--;
             currentIndex++;
         }else if (currentIndex === TopPXArray.length) {
             // Reset stack if it's full
-            area.innerText = "Resetting stack as it reached MAXIMUM capacity."
+            area.value = "Resetting stack as it reached MAXIMUM capacity."
             while (mainStructure.firstChild) {
                 mainStructure.removeChild(mainStructure.firstChild);
             }
@@ -122,29 +138,43 @@ function stacks(){
             counter = 5;
         }
         nodeCreated = false;
+        popBool = false;
     })
 
     popButton.addEventListener("click", function (){
-        if (counter === 5){
-            while (mainStructure.firstChild) {
-                mainStructure.removeChild(mainStructure.firstChild);
+        if (counter < 5) {  // Ensure that the counter is within a valid range before attempting to pop.
+            let currentNode = listOFNodes[counter+1];
+            if (currentNode) {
+                console.log("Node being cloned")
+                // Clone the current node to display it elsewhere
+                let clonedNode = currentNode.cloneNode(true);
+                clonedNode.style.background = "white";
+                clonedNode.style.position = "absolute"; // Ensure the cloned node is positioned absolutely
+                clonedNode.style.top = "10%";
+                clonedNode.style.left = "80%";
+                document.body.appendChild(clonedNode); // Append to the body or another specific element
+
+                // Remove the current node from the DOM and update the array
+                mainStructure.removeChild(currentNode);
+                listOFNodes[counter] = null;
+                currentIndex = currentIndex - 1;
+
+                // Adjust the counter appropriately
+                if (counter >= 5) { // Reset the counter if it goes out of bounds
+                    counter = 4;
+                }
+            } else {
+                console.log("No node available to pop at position: ", counter);
             }
-            listOFNodes = [];
-            currentIndex = 0;
-            counter = 5;
-        }
-        if (counter > 5){ // To fix multiple clicks
-            counter = 4;
+        } else {
+            console.log("No nodes to pop or counter out of bounds");
+            counter = 4; // Resetting counter to maximum index when it's out of bounds
+            area.value = "No nodes to pop!!"
         }
         counter++;
-        if (counter < 0){counter = 0;}
-        console.log("POP counter: " + counter);
-        let selectNode = listOFNodes[counter];
-        selectNode.style.background = "black";
-        selectNode.style.top = "10%";
-        selectNode.style.left = "80%";
+        console.log("counter: " + counter);
         nodeCreated = false;
-    })
+    });
 
 }
 
