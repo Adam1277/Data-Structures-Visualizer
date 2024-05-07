@@ -66,6 +66,7 @@ function stacks(){
     let createNodes = document.getElementById("Create-Node");
     let mainStructure =  document.getElementById("Main-Data-Structure");let fullStack = false;
     let nodeCreated = false;
+    let NodeInteraction = false;
 
     // On click of the Create Node button
     createNodes.addEventListener("click",function(){
@@ -73,6 +74,15 @@ function stacks(){
         stepsContainer.style.top = "72%";
         stepsContainer.style.left = "48.4%";
         stepsContainer.style.right = "50%";
+
+        if (counter === 5){
+            while (mainStructure.firstChild) {
+                mainStructure.removeChild(mainStructure.firstChild);
+            }
+            listOFNodes = [];
+            currentIndex = 0;
+            counter = 5;
+        }
 
         // Created Nodes not in the current Stack yet
         let box = document.createElement("div");
@@ -86,6 +96,9 @@ function stacks(){
 
     pushButton.addEventListener("click", function (){
         // TODO: Put some data in the boxes
+        if(nodeCreated === false){
+            area.textContent = "No node created";
+        }
 
         if (lastCreatedNode && currentIndex < TopPXArray.length && nodeCreated === true){
             lastCreatedNode.style.background = "red";
@@ -94,27 +107,34 @@ function stacks(){
             lastCreatedNode.style.left = "502px";
             lastCreatedNode.style.borderColor = "green";
             lastCreatedNode.style.borderWidth = "10px";
-            currentIndex++;
             listOFNodes[counter] = lastCreatedNode;
             console.log("counter: " + counter);
             counter--;
-        }else{
-            area.innerText = "MAXIMUM number of nodes!!"
+            currentIndex++;
+        }else if (currentIndex === TopPXArray.length) {
+            // Reset stack if it's full
+            area.innerText = "Resetting stack as it reached MAXIMUM capacity."
+            while (mainStructure.firstChild) {
+                mainStructure.removeChild(mainStructure.firstChild);
+            }
+            listOFNodes = [];
             currentIndex = 0;
-            console.log("Stack is full")
+            counter = 5;
         }
         nodeCreated = false;
     })
 
     popButton.addEventListener("click", function (){
+        if (counter === 5){
+            while (mainStructure.firstChild) {
+                mainStructure.removeChild(mainStructure.firstChild);
+            }
+            listOFNodes = [];
+            currentIndex = 0;
+            counter = 5;
+        }
         if (counter > 5){ // To fix multiple clicks
             counter = 4;
-        }if(counter === 5){ // To delete the stack nodes
-            let divsToRemove = mainStructure.querySelectorAll("div");
-            divsToRemove.forEach(function (div) {
-                div.parentNode.removeChild(div);
-            });
-            listOFNodes = []; // Reset listOFNodes to an empty array
         }
         counter++;
         if (counter < 0){counter = 0;}
