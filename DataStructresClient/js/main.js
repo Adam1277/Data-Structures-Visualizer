@@ -1,3 +1,7 @@
+
+
+
+
 function stacks(){
     // An array storing each UI's position for the box on the stack
     // Using the style.top = " px";
@@ -67,7 +71,6 @@ function stacks(){
     let createNodes = document.getElementById("Create-Node");
     let mainStructure =  document.getElementById("Main-Data-Structure");let fullStack = false;
     let nodeCreated = false;
-    let popBool = false;
 
     // On click of the Create Node button
     createNodes.addEventListener("click",function(){
@@ -85,10 +88,6 @@ function stacks(){
             listOFNodes = [];
             currentIndex = 0;
             counter = 5;
-        }else if(popBool === true){
-            mainStructure.removeChild(lastCreatedNode);
-            counter = counter - 1;
-            listOFNodes[counter] = null;
         }
 
         // Created Nodes not in the current Stack yet
@@ -106,7 +105,6 @@ function stacks(){
         mainStructure.appendChild(box);
         lastCreatedNode = box;
         nodeCreated = true;
-        popBool = false;
         console.log("Node created, at counter: " + counter);
     })
 
@@ -120,7 +118,8 @@ function stacks(){
             lastCreatedNode.style.background = "grey";
             lastCreatedNode.style.position = "absolute";
             lastCreatedNode.style.top = TopPXArray[currentIndex];
-            lastCreatedNode.style.left = "502px";
+            lastCreatedNode.style.left = "45%";
+            lastCreatedNode.style.right = "50%";
             lastCreatedNode.style.borderColor = "red";
             lastCreatedNode.style.borderWidth = "5px";
             listOFNodes[counter] = lastCreatedNode;
@@ -138,7 +137,6 @@ function stacks(){
             counter = 5;
         }
         nodeCreated = false;
-        popBool = false;
     })
 
     popButton.addEventListener("click", function (){
