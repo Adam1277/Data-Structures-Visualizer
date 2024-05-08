@@ -1,3 +1,30 @@
+.Button-C{
+    background-color: green;
+    color: white;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.Button-C:hover{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+#Create-Node{
+    background-color: black; /* Green */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for sizing */
+    font-size: 16px; /* Text size */
+    cursor: pointer; /* Cursor change on hover */
+    transition: all 0.3s ease; /* Smooth transitions */
+}
+#Create-Node:hover{
+    background-color: red;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+#Create-Node:active{
+    background-color: #3e8e41;
+    transform: translateY(2px); /* Make button appear "pressed" */
+}
 #box{
     width: 100px;
     height: 100px;

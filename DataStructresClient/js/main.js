@@ -1,7 +1,5 @@
 
 
-
-
 function stacks(){
     // An array storing each UI's position for the box on the stack
     // Using the style.top = " px";
@@ -30,12 +28,30 @@ function stacks(){
     // Creating the push button and placing it beside the next step button
     let pushButton = document.createElement("button");
     pushButton.innerText = "PUSH";
+    pushButton.style.backgroundColor = '#4CAF50'; // Green background
+    pushButton.style.color = 'white'; // White text
+    pushButton.style.border = 'none';
+    pushButton.style.borderRadius = '8px';
+    pushButton.style.padding = '10px 20px';
+    pushButton.style.fontSize = '16px';
+    pushButton.style.cursor = 'pointer';
+    pushButton.style.transition = 'all 0.3s ease'; // Smooth transitions
+
     let button1div = document.getElementById("button1");
     button1div.appendChild(pushButton);
 
     // Creating the pop button and placing it beside the next step button
     let popButton = document.createElement("button");
     popButton.innerText = "POP";
+    popButton.style.backgroundColor = "red"; // Green background
+    popButton.style.color = 'white'; // White text
+    popButton.style.border = 'none';
+    popButton.style.borderRadius = '8px';
+    popButton.style.padding = '10px 20px';
+    popButton.style.fontSize = '16px';
+    popButton.style.cursor = 'pointer';
+    popButton.style.transition = 'all 0.3s ease'; // Smooth transitions
+
     let button2div = document.getElementById("button2");
     button2div.appendChild(popButton);
 
@@ -177,6 +193,99 @@ function stacks(){
 }
 
 function queues(){
+
+    let PXArrayHorz = ["10%","30%","50%","70%","90%"];
+
+    // Creating the push button and placing it beside the next step button
+    let pushButton1 = document.createElement("button");
+    pushButton1.innerText = "PUSH";
+    pushButton1.style.backgroundColor = '#4CAF50'; // Green background
+    pushButton1.style.color = 'white'; // White text
+    pushButton1.style.border = 'none';
+    pushButton1.style.borderRadius = '8px';
+    pushButton1.style.padding = '10px 20px';
+    pushButton1.style.fontSize = '16px';
+    pushButton1.style.cursor = 'pointer';
+    pushButton1.style.transition = 'all 0.3s ease'; // Smooth transitions
+
+    let button1div1 = document.getElementById("button1");
+    button1div1.appendChild(pushButton1);
+
+    // Creating the pop button and placing it beside the next step button
+    let popButton1 = document.createElement("button");
+    popButton1.innerText = "POP";
+    popButton1.style.backgroundColor = "red"; // Green background
+    popButton1.style.color = 'white'; // White text
+    popButton1.style.border = 'none';
+    popButton1.style.borderRadius = '8px';
+    popButton1.style.padding = '10px 20px';
+    popButton1.style.fontSize = '16px';
+    popButton1.style.cursor = 'pointer';
+    popButton1.style.transition = 'all 0.3s ease'; // Smooth transitions
+
+    let button2div = document.getElementById("button2");
+    button2div.appendChild(popButton1);
+
+
+
+
+
+
+
+
+
+
+    // Create Container for main structure
+    let container = document.getElementById("Horz-line-container");
+    container.style.position = "absolute";
+    container.style.height = "400px";
+    container.style.width = "50%";
+    container.style.left = "25%";
+    container.style.top = "30%";
+    //container.style.border = "5px solid black";  //TO see the container if needed
+
+    let newlinetop = document.createElement("div");
+    newlinetop.style.borderTop = "6px solid black";
+    newlinetop.style.top = "0%";
+    newlinetop.style.left = "0%";
+    newlinetop.style.width = "100%";
+    newlinetop.style.position = "absolute";
+
+    let newlinebottom = document.createElement("div");
+    newlinebottom.style.borderTop = "6px solid black";
+    newlinebottom.style.top = "30%";
+    newlinebottom.style.left = "0%";
+    newlinebottom.style.width = "100%";
+    newlinebottom.style.position = "absolute";
+
+    container.appendChild(newlinetop);
+    container.appendChild(newlinebottom);
+
+    let createNodeButton = document.getElementById("Create-Node");
+    let NodeCreation = document.getElementById("Main-Data-Structure");
+    NodeCreation.style.position = "absolute";
+    NodeCreation.style.top = "20%";
+    NodeCreation.style.width = "20%";
+
+    let NodeData = "Data Node";
+    let areaText = "";
+
+    createNodeButton.addEventListener("click", function (){
+        console.log("Create Node pressed");
+        // Now to create Nodes (div boxes) with some data
+        let NodeBox = document.createElement("div");
+        NodeBox.style.position = "absolute";
+        NodeBox.style.background = "Green";
+        NodeBox.style.width = "50px";
+        NodeBox.style.height = "50px";
+        NodeBox.style.border = "8px";
+        NodeBox.value = "";
+        NodeCreation.appendChild(NodeBox);
+    })
+
+    moveQueue.addEventListener("click", function (){
+
+    })
 
 }
 
