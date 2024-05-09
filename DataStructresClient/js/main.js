@@ -125,7 +125,6 @@ function stacks(){
     })
 
     pushButton.addEventListener("click", function (){
-        // TODO: Put some data in the boxes
         if(nodeCreated === false){
             area.value = "No node created";
         }
@@ -194,7 +193,53 @@ function stacks(){
 
 function queues(){
 
-    let PXArrayHorz = ["10%","30%","50%","70%","90%"];
+    // Create functions to adjust the line width with the Queue getting larger or smaller
+
+
+    let PerArrayHorz = ["5%","15%","25%","35%","45%","55%","65%","75%","85%","95%"];
+    let NodeArray = [];
+    let counter = 0;
+
+    // Create the Next Step button
+    let NextStepButton = document.createElement('button');
+    let NodeContainer = document.getElementById("Node-Button-Container");
+
+    // Set the inner text of the button
+    NextStepButton.innerText = "Next Step";
+
+    // Apply the initial styles
+    NextStepButton.style.backgroundColor = "black";
+    NextStepButton.style.color = "white";
+    NextStepButton.style.border = "none";
+    NextStepButton.style.borderRadius = "8px";
+    NextStepButton.style.padding = "10px 20px";
+    NextStepButton.style.fontSize = "16px";
+    NextStepButton.style.cursor = "pointer";
+    NextStepButton.style.transition = "all 0.3s ease";
+
+    // Define the hover effect
+    NextStepButton.addEventListener('mouseover', () => {
+        NextStepButton.style.backgroundColor = "red";
+        NextStepButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
+    });
+
+    NextStepButton.addEventListener('mouseout', () => {
+        NextStepButton.style.backgroundColor = "black";
+        NextStepButton.style.boxShadow = "none";
+    });
+
+    // Define the active effect
+    NextStepButton.addEventListener('mousedown', () => {
+        NextStepButton.style.backgroundColor = "#3e8e41";
+        NextStepButton.style.transform = "translateY(2px)";
+    });
+
+    NextStepButton.addEventListener('mouseup', () => {
+        NextStepButton.style.backgroundColor = "red";
+        NextStepButton.style.transform = "none";
+    });
+
+    NodeContainer.appendChild(NextStepButton);
 
     // Creating the push button and placing it beside the next step button
     let pushButton1 = document.createElement("button");
@@ -279,11 +324,37 @@ function queues(){
         NodeBox.style.width = "50px";
         NodeBox.style.height = "50px";
         NodeBox.style.border = "8px";
-        NodeBox.value = "";
+        NodeBox.value = "Data Element " + counter;
+        NodeArray[counter] = NodeBox;
         NodeCreation.appendChild(NodeBox);
     })
 
-    moveQueue.addEventListener("click", function (){
+
+    pushButton1.addEventListener("click", function (){
+        container.appendChild(NodeArray[counter]);
+        NodeArray[counter].style.left = PerArrayHorz[counter];
+        NodeArray[counter].style.top = "9.7%";
+        console.log("Counter = " + counter + "|| At percentage = " + PerArrayHorz[counter]);
+        counter++;
+
+    })
+
+    function moveQueue(){
+        let MoveCounter = 0;
+        //NodeArray[]
+        for(let i = 0; i < NodeArray.length; i++){
+
+        }
+    }
+
+    popButton1.addEventListener("click", function (){
+        // While the queue has less than a certain number of nodes the button isnt pressable
+        // Also doesn't have a shadow
+
+        if(NodeArray[10]){
+
+        }
+
 
     })
 
