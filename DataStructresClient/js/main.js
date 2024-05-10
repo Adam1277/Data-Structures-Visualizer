@@ -177,7 +177,7 @@ function stacks(){
                     counter = 4;
                 }
             } else {
-                console.log("No node available to pop at position: ", counter);
+                console.log("No node available to pop at position: " + counter);
             }
         } else {
             console.log("No nodes to pop or counter out of bounds");
@@ -243,7 +243,7 @@ function queues(){
 
     // Creating the push button and placing it beside the next step button
     let pushButton1 = document.createElement("button");
-    pushButton1.innerText = "PUSH";
+    pushButton1.innerText = "Enqueue";
     pushButton1.style.backgroundColor = '#4CAF50'; // Green background
     pushButton1.style.color = 'white'; // White text
     pushButton1.style.border = 'none';
@@ -258,7 +258,7 @@ function queues(){
 
     // Creating the pop button and placing it beside the next step button
     let popButton1 = document.createElement("button");
-    popButton1.innerText = "POP";
+    popButton1.innerText = "Dequeue";
     popButton1.style.backgroundColor = "red"; // Green background
     popButton1.style.color = 'white'; // White text
     popButton1.style.border = 'none';
@@ -270,15 +270,6 @@ function queues(){
 
     let button2div = document.getElementById("button2");
     button2div.appendChild(popButton1);
-
-
-
-
-
-
-
-
-
 
     // Create Container for main structure
     let container = document.getElementById("Horz-line-container");
@@ -311,6 +302,47 @@ function queues(){
     NodeCreation.style.position = "absolute";
     NodeCreation.style.top = "20%";
     NodeCreation.style.width = "20%";
+
+    let HeadTailContainer = document.createElement("div");
+    //HeadTailContainer.style.border = "8px solid black";
+    HeadTailContainer.style.position = "relative";
+    HeadTailContainer.style.top = "50%";
+    HeadTailContainer.style.height = "20%";
+    HeadTailContainer.style.width = "45%"
+    HeadTailContainer.style.left = "27%";
+
+    container.appendChild(HeadTailContainer);
+
+    // To create the Top and Head Visualizer portion
+    let Head = document.createElement("div");
+    //Head.style.display = "flex";
+    Head.style.position = "absolute";
+    Head.style.backgroundColor = "white";
+    Head.style.height = "40px";
+    Head.style.width = "110px";
+    Head.style.top = "20%";
+    Head.style.left = "10%";
+    Head.innerText = "Head"; // This is to be changed with every iteration
+    Head.style.textAlign = "center";
+    Head.style.border = "2px solid black";
+    Head.style.borderRadius = "10px";
+
+    let Tail = document.createElement("div");
+    //Head.style.display = "flex";
+    Tail.style.position = "absolute";
+    Tail.style.backgroundColor = "white";
+    Tail.style.height = "40px";
+    Tail.style.width = "110px";
+    Tail.style.top = "20%";
+    Tail.style.left = "55%";
+    Tail.innerText = "Tail"; // This is to be changed with every iteration
+    Tail.style.textAlign = "center";
+    Tail.style.border = "2px solid black";
+    Tail.style.borderRadius = "10px";
+
+    HeadTailContainer.appendChild(Head);
+    HeadTailContainer.appendChild(Tail);
+
 
     let NodeData = "Data Node";
     let areaText = "";
