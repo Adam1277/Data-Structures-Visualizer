@@ -407,8 +407,8 @@ function queues(){
             node.style.left = PerArrayHorz[index]; // Update each node's position to the next forward position
         });
 
+        //NodeArray.shift();
         console.log("Node was dequeued. Remaining nodes: " + NodeArray.length);
-        NodeArray.shift();
     })
 }
 
