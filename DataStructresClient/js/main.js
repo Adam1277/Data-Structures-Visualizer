@@ -204,6 +204,8 @@ function queues(){
     let NextStepButton = document.createElement('button');
     let NodeContainer = document.getElementById("Node-Button-Container");
 
+    let OpenMessage = "Queue's make use of nodes in a formation, and follow a first in; first out process."
+
     // Set the inner text of the button
     NextStepButton.innerText = "Next Step";
 
@@ -345,7 +347,8 @@ function queues(){
 
 
     let NodeData = "Data Node";
-    let areaText = "";
+    let areaText = document.getElementById("text-area");
+    let popCount = 0;
 
     createNodeButton.addEventListener("click", function (){
         console.log("Create Node pressed");
@@ -356,40 +359,57 @@ function queues(){
         NodeBox.style.width = "50px";
         NodeBox.style.height = "50px";
         NodeBox.style.border = "8px";
-        NodeBox.value = "Data Element " + counter;
+        NodeBox.innerText = "Data Element " + counter;
         NodeArray[counter] = NodeBox;
+        console.log("Node created at counter: " + counter);
         NodeCreation.appendChild(NodeBox);
+
+        areaText.innerText = OpenMessage;
     })
 
 
     pushButton1.addEventListener("click", function (){
+        Head.innerText = "Head\n" + NodeArray[popCount].innerText;
+        Tail.innerText = "Tail\n" + NodeArray[NodeArray.length-1].innerText;
+        // To move the Queue
+        console.log("Push button");
+        if(counter === 9){
+            let area = document.getElementById("text-area");
+            area.innerText = "Queue is full!!";
+            counter = 0;
+            NodeArray = [];
+            // To reset the UI by removing the div tags
+            // Reset UI and Arrays
+        }
+
         container.appendChild(NodeArray[counter]);
         NodeArray[counter].style.left = PerArrayHorz[counter];
         NodeArray[counter].style.top = "9.7%";
         console.log("Counter = " + counter + "|| At percentage = " + PerArrayHorz[counter]);
         counter++;
-
     })
 
-    function moveQueue(){
-        let MoveCounter = 0;
-        //NodeArray[]
-        for(let i = 0; i < NodeArray.length; i++){
-
-        }
-    }
 
     popButton1.addEventListener("click", function (){
-        // While the queue has less than a certain number of nodes the button isnt pressable
-        // Also doesn't have a shadow
-
-        if(NodeArray[10]){
-
+        if (NodeArray.length === 0) {
+            console.log("Queue is empty");
+            areaText.value = "Queue is empty!";
+            return;
         }
 
 
-    })
+        let dequeuedElement = NodeArray.shift();
+        dequeuedElement.style.left = "80%"; // To move the Node top right
+        document.body.appendChild(dequeuedElement); // Appending the popped node to the top right
 
+        // Shift remaining nodes on the UI and Array
+        NodeArray.forEach((node, index) => {
+            node.style.left = PerArrayHorz[index]; // Update each node's position to the next forward position
+        });
+
+        console.log("Node was dequeued. Remaining nodes: " + NodeArray.length);
+        NodeArray.shift();
+    })
 }
 
 function linkedList(){
