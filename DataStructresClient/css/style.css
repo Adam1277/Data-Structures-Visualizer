@@ -101,6 +101,7 @@ footer{
     padding: 18px;
     display: flex;
     justify-content: center;
+    height: 30px;
 }
 .Button-C{
     padding: 0 10px 0 10px;

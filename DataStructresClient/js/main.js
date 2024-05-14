@@ -1,5 +1,6 @@
 
 
+
 function stacks(){
     // An array storing each UI's position for the box on the stack
     // Using the style.top = " px";
@@ -130,7 +131,7 @@ function stacks(){
         }
 
         if (lastCreatedNode && currentIndex < TopPXArray.length && nodeCreated === true){
-            lastCreatedNode.style.background = "grey";
+            lastCreatedNode.style.background = "transparent";
             lastCreatedNode.style.position = "absolute";
             lastCreatedNode.style.top = TopPXArray[currentIndex];
             lastCreatedNode.style.left = "45%";
@@ -201,47 +202,9 @@ function queues(){
     let counter = 0;
 
     // Create the Next Step button
-    let NextStepButton = document.createElement('button');
     let NodeContainer = document.getElementById("Node-Button-Container");
 
     let OpenMessage = "Queue's make use of nodes in a formation, and follow a first in; first out process."
-
-    // Set the inner text of the button
-    NextStepButton.innerText = "Next Step";
-
-    // Apply the initial styles
-    NextStepButton.style.backgroundColor = "black";
-    NextStepButton.style.color = "white";
-    NextStepButton.style.border = "none";
-    NextStepButton.style.borderRadius = "8px";
-    NextStepButton.style.padding = "10px 20px";
-    NextStepButton.style.fontSize = "16px";
-    NextStepButton.style.cursor = "pointer";
-    NextStepButton.style.transition = "all 0.3s ease";
-
-    // Define the hover effect
-    NextStepButton.addEventListener('mouseover', () => {
-        NextStepButton.style.backgroundColor = "red";
-        NextStepButton.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
-    });
-
-    NextStepButton.addEventListener('mouseout', () => {
-        NextStepButton.style.backgroundColor = "black";
-        NextStepButton.style.boxShadow = "none";
-    });
-
-    // Define the active effect
-    NextStepButton.addEventListener('mousedown', () => {
-        NextStepButton.style.backgroundColor = "#3e8e41";
-        NextStepButton.style.transform = "translateY(2px)";
-    });
-
-    NextStepButton.addEventListener('mouseup', () => {
-        NextStepButton.style.backgroundColor = "red";
-        NextStepButton.style.transform = "none";
-    });
-
-    NodeContainer.appendChild(NextStepButton);
 
     // Creating the push button and placing it beside the next step button
     let pushButton1 = document.createElement("button");
@@ -306,38 +269,38 @@ function queues(){
     NodeCreation.style.width = "20%";
 
     let HeadTailContainer = document.createElement("div");
+    HeadTailContainer.style.display = 'flex';
+    HeadTailContainer.style.justifyContent = 'center';
+    HeadTailContainer.style.alignItems = 'center';
     //HeadTailContainer.style.border = "8px solid black";
-    HeadTailContainer.style.position = "relative";
-    HeadTailContainer.style.top = "50%";
-    HeadTailContainer.style.height = "20%";
-    HeadTailContainer.style.width = "45%"
-    HeadTailContainer.style.left = "27%";
+    HeadTailContainer.style.height = "100px";
+    HeadTailContainer.style.width = "300px";
+    HeadTailContainer.style.padding = "20px";
+    HeadTailContainer.style.margin = "auto";
+    HeadTailContainer.style.marginTop = "220px";
 
     container.appendChild(HeadTailContainer);
 
-    // To create the Top and Head Visualizer portion
     let Head = document.createElement("div");
-    //Head.style.display = "flex";
-    Head.style.position = "absolute";
-    Head.style.backgroundColor = "white";
-    Head.style.height = "40px";
-    Head.style.width = "110px";
-    Head.style.top = "20%";
-    Head.style.left = "10%";
-    Head.innerText = "Head"; // This is to be changed with every iteration
+    Head.style.backgroundColor = "#e0f8e0";
+    Head.style.height = "50px";
+    Head.style.width = "120px";
+    Head.style.display = 'flex';
+    Head.style.justifyContent = 'center'; // Align text horizontally
+    Head.innerText = "Head";
+    Head.style.fontSize = "15px";
     Head.style.textAlign = "center";
     Head.style.border = "2px solid black";
     Head.style.borderRadius = "10px";
 
     let Tail = document.createElement("div");
-    //Head.style.display = "flex";
-    Tail.style.position = "absolute";
-    Tail.style.backgroundColor = "white";
-    Tail.style.height = "40px";
-    Tail.style.width = "110px";
-    Tail.style.top = "20%";
-    Tail.style.left = "55%";
-    Tail.innerText = "Tail"; // This is to be changed with every iteration
+    Tail.style.backgroundColor = "#e0f8e0";
+    Tail.style.height = "50px";
+    Tail.style.width = "120px";
+    Tail.style.display = 'flex';
+    Tail.style.justifyContent = 'center';
+    Tail.innerText = "Tail";
+    Tail.style.fontSize = "15px";
     Tail.style.textAlign = "center";
     Tail.style.border = "2px solid black";
     Tail.style.borderRadius = "10px";
@@ -345,31 +308,28 @@ function queues(){
     HeadTailContainer.appendChild(Head);
     HeadTailContainer.appendChild(Tail);
 
-
-    let NodeData = "Data Node";
     let areaText = document.getElementById("text-area");
-    let popCount = 0;
+    let DataCount = 0;
 
     createNodeButton.addEventListener("click", function (){
-        console.log("Create Node pressed");
         // Now to create Nodes (div boxes) with some data
         let NodeBox = document.createElement("div");
         NodeBox.style.position = "absolute";
-        NodeBox.style.background = "Green";
-        NodeBox.style.width = "50px";
-        NodeBox.style.height = "50px";
-        NodeBox.style.border = "8px";
-        NodeBox.innerText = "Data Element " + counter;
+        NodeBox.style.background = "#e0f8e0";
+        NodeBox.style.width = "66px";
+        NodeBox.style.height = "30px";
+        NodeBox.style.border = "2px solid red";
+        NodeBox.innerText = "Data Element " + DataCount;
         NodeArray[counter] = NodeBox;
         console.log("Node created at counter: " + counter);
         NodeCreation.appendChild(NodeBox);
-
         areaText.innerText = OpenMessage;
+        DataCount++;
     })
 
 
     pushButton1.addEventListener("click", function (){
-        Head.innerText = "Head\n" + NodeArray[popCount].innerText;
+        Head.innerText = "Head\n" + NodeArray[0].innerText;
         Tail.innerText = "Tail\n" + NodeArray[NodeArray.length-1].innerText;
         // To move the Queue
         console.log("Push button");
@@ -381,7 +341,6 @@ function queues(){
             // To reset the UI by removing the div tags
             // Reset UI and Arrays
         }
-
         container.appendChild(NodeArray[counter]);
         NodeArray[counter].style.left = PerArrayHorz[counter];
         NodeArray[counter].style.top = "9.7%";
@@ -397,7 +356,6 @@ function queues(){
             return;
         }
 
-
         let dequeuedElement = NodeArray.shift();
         dequeuedElement.style.left = "80%"; // To move the Node top right
         document.body.appendChild(dequeuedElement); // Appending the popped node to the top right
@@ -409,6 +367,9 @@ function queues(){
 
         //NodeArray.shift();
         console.log("Node was dequeued. Remaining nodes: " + NodeArray.length);
+        counter--;
+        Head.innerText = "Head\n" + NodeArray[0].innerText;
+        Tail.innerText = "Tail\n" + NodeArray[NodeArray.length-1].innerText;
     })
 }
 
