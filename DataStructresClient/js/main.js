@@ -194,9 +194,6 @@ function stacks(){
 
 function queues(){
 
-    // Create functions to adjust the line width with the Queue getting larger or smaller
-
-
     let PerArrayHorz = ["5%","15%","25%","35%","45%","55%","65%","75%","85%","95%"];
     let NodeArray = [];
     let counter = 0;
@@ -204,7 +201,8 @@ function queues(){
     // Create the Next Step button
     let NodeContainer = document.getElementById("Node-Button-Container");
 
-    let OpenMessage = "Queue's make use of nodes in a formation, and follow a first in; first out process."
+    let OpenMessage = "Queue's make use of nodes in a formation, and follow a first in; first out process." +
+        "Nodes can only be pushed or popped, and never removed if not the head of the Queue.";
 
     // Creating the push button and placing it beside the next step button
     let pushButton1 = document.createElement("button");
@@ -311,41 +309,38 @@ function queues(){
     let areaText = document.getElementById("text-area");
     let DataCount = 0;
 
+    areaText.innerText = OpenMessage;
     createNodeButton.addEventListener("click", function (){
         // Now to create Nodes (div boxes) with some data
         let NodeBox = document.createElement("div");
         NodeBox.style.position = "absolute";
         NodeBox.style.background = "#e0f8e0";
-        NodeBox.style.width = "66px";
-        NodeBox.style.height = "30px";
+        NodeBox.style.width = "50px";
+        NodeBox.style.height = "46px";
         NodeBox.style.border = "2px solid red";
         NodeBox.innerText = "Data Element " + DataCount;
         NodeArray[counter] = NodeBox;
         console.log("Node created at counter: " + counter);
         NodeCreation.appendChild(NodeBox);
-        areaText.innerText = OpenMessage;
         DataCount++;
     })
 
 
     pushButton1.addEventListener("click", function (){
-        Head.innerText = "Head\n" + NodeArray[0].innerText;
-        Tail.innerText = "Tail\n" + NodeArray[NodeArray.length-1].innerText;
         // To move the Queue
         console.log("Push button");
-        if(counter === 9){
+        if(counter >= 9){
             let area = document.getElementById("text-area");
             area.innerText = "Queue is full!!";
-            counter = 0;
-            NodeArray = [];
-            // To reset the UI by removing the div tags
-            // Reset UI and Arrays
+        }else{
+            Head.innerText = "Head\n" + NodeArray[0].innerText;
+            Tail.innerText = "Tail\n" + NodeArray[NodeArray.length-1].innerText;
+            container.appendChild(NodeArray[counter]);
+            NodeArray[counter].style.left = PerArrayHorz[counter];
+            NodeArray[counter].style.top = "9.7%";
+            console.log("Counter = " + counter + "|| At percentage = " + PerArrayHorz[counter]);
+            counter++;
         }
-        container.appendChild(NodeArray[counter]);
-        NodeArray[counter].style.left = PerArrayHorz[counter];
-        NodeArray[counter].style.top = "9.7%";
-        console.log("Counter = " + counter + "|| At percentage = " + PerArrayHorz[counter]);
-        counter++;
     })
 
 
@@ -365,7 +360,6 @@ function queues(){
             node.style.left = PerArrayHorz[index]; // Update each node's position to the next forward position
         });
 
-        //NodeArray.shift();
         console.log("Node was dequeued. Remaining nodes: " + NodeArray.length);
         counter--;
         Head.innerText = "Head\n" + NodeArray[0].innerText;
@@ -374,6 +368,70 @@ function queues(){
 }
 
 function linkedList(){
+    // Create a main container
+    // Place multiple Nodes with two boxes one data one pointer
+    document.getElementById("text-area").innerText = "Linked List Selected! Please create a node to get started";
+
+    let counter = 0;
+
+    let LinkedContainer = document.getElementById("Main-Data-Structure");
+    LinkedContainer.style.position = "relative";
+    LinkedContainer.style.top = "5%";
+    LinkedContainer.style.width = "70%";
+    LinkedContainer.style.height = "40%";
+    LinkedContainer.style.left = "5%";
+    //LinkedContainer.style.border = "4px solid black";
+    LinkedContainer.style.display = "flex";
+    LinkedContainer.style.justifyContent = "center"; // For horizontal centering
+
+    let CreateNode = document.getElementById("Create-Node");
+    let TextIndex = "";
+
+    CreateNode.addEventListener("click", function(){
+        let Node = document.createElement("div");
+        Node.style.position = "relative";
+        Node.style.background = "green";
+        Node.style.color = "white";
+        Node.style.width = "100px";
+        Node.style.height = "50px";
+        Node.style.border = "2px solid black";
+        Node.innerText = "Data index " + counter;
+        Node.style.justifyContent = "center";
+        Node.style.margin = "20px";
+
+        if(counter === 0){ // To insert a node to a specific index
+            let TextInput = document.createElement("input");
+            TextInput.style.width = "100px";
+            TextInput.type = "text";
+            TextInput.placeholder = "Index:";
+            TextIndex = TextInput;
+            let NodeButtonContainer = document.getElementById("Node-Button-Container");
+            NodeButtonContainer.appendChild(TextInput);
+        }
+
+        if(TextIndex && TextIndex.value.trim() === ""){
+
+        }
+
+        LinkedContainer.appendChild(Node);
+
+        let arrow = document.createElement("div");
+        arrow.style.width = "0";
+        arrow.style.height = "0";
+        arrow.style.borderTop = "10px solid transparent";
+        arrow.style.borderBottom = "10px solid transparent";
+        arrow.style.borderLeft = "20px solid black";  // Point the arrow right
+        arrow.style.position = "relative";
+        arrow.style.marginTop = "40px";
+        LinkedContainer.appendChild(arrow);
+
+        let NodeLine = document.createElement("div");
+        NodeLine.style.borderLeft = "3px solid black";
+
+        Node.appendChild(NodeLine);
+
+        counter++;
+    })
 
 }
 
