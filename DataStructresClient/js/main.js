@@ -372,7 +372,45 @@ function linkedList(){
     // Place multiple Nodes with two boxes one data one pointer
     document.getElementById("text-area").innerText = "Linked List Selected! Please create a node to get started";
 
+    let ButtonContainer = document.getElementById("Node-Button-Container");
+    let DeleteNode = document.createElement("button");
+    DeleteNode.style.backgroundColor = 'black';
+    DeleteNode.style.color = 'white';
+    DeleteNode.style.border = 'none';
+    DeleteNode.style.borderRadius = '8px';
+    DeleteNode.style.padding = '10px 20px';
+    DeleteNode.style.fontSize = '16px';
+    DeleteNode.style.cursor = 'pointer';
+    DeleteNode.style.transition = 'all 0.3s ease';
+    DeleteNode.innerText = "Delete Node";
+    DeleteNode.id = "delete-button";
+
+    DeleteNode.addEventListener('mouseover', function() {
+        DeleteNode.style.backgroundColor = 'red';
+        DeleteNode.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+    });
+
+    DeleteNode.addEventListener('mouseout', function() {
+        DeleteNode.style.backgroundColor = 'black'; // Reset to original
+        DeleteNode.style.boxShadow = 'none';
+    });
+
+    // Active styles
+    DeleteNode.addEventListener('mousedown', function() {
+        DeleteNode.style.backgroundColor = 'red';
+        DeleteNode.style.transform = 'translateY(2px)';
+    });
+
+    DeleteNode.addEventListener('mouseup', function() {
+        DeleteNode.style.transform = 'translateY(0px)';
+    });
+
+    ButtonContainer.appendChild(DeleteNode);
+
     let counter = 0;
+    let NodeArray = [];
+    let ArrowArray = [];
+    let PointerArray = [];
 
     let LinkedContainer = document.getElementById("Main-Data-Structure");
     LinkedContainer.style.position = "relative";
@@ -387,51 +425,108 @@ function linkedList(){
     let CreateNode = document.getElementById("Create-Node");
     let TextIndex = "";
 
+    document.getElementById("text-area").innerText = "";
+
+
     CreateNode.addEventListener("click", function(){
+        // Node creation
         let Node = document.createElement("div");
         Node.style.position = "relative";
         Node.style.background = "green";
         Node.style.color = "white";
-        Node.style.width = "100px";
+        Node.style.width = "120px";
         Node.style.height = "50px";
         Node.style.border = "2px solid black";
-        Node.innerText = "Data index " + counter;
-        Node.style.justifyContent = "center";
+        Node.style.display = "flex";
+        Node.style.alignItems = "center";
         Node.style.margin = "20px";
 
-        if(counter === 0){ // To insert a node to a specific index
-            let TextInput = document.createElement("input");
-            TextInput.style.width = "100px";
-            TextInput.type = "text";
-            TextInput.placeholder = "Index:";
-            TextIndex = TextInput;
-            let NodeButtonContainer = document.getElementById("Node-Button-Container");
-            NodeButtonContainer.appendChild(TextInput);
-        }
+        // Node data text
+        let textDiv = document.createElement("div");
+        textDiv.innerText = "Int: " + counter;
+        textDiv.style.width = "50%";
+        textDiv.style.textAlign = "center";
 
-        if(TextIndex && TextIndex.value.trim() === ""){
+        // Node pointer text
+        let NextTextDiv = document.createElement("div");
+        NextTextDiv.innerText = "Null";
+        NextTextDiv.style.width = "50%";
+        NextTextDiv.style.textAlign = "center";
 
-        }
+        // Line separating the data and pointer to the next node
+        let NodeLine = document.createElement("div");
+        NodeLine.style.position = "absolute";
+        NodeLine.style.left = "50%";
+        NodeLine.style.top = "0";
+        NodeLine.style.bottom = "0";
+        NodeLine.style.width = "2px";
+        NodeLine.style.backgroundColor = "black";
 
-        LinkedContainer.appendChild(Node);
+        Node.appendChild(textDiv);
+        Node.appendChild(NextTextDiv);
+        Node.appendChild(NodeLine);
 
         let arrow = document.createElement("div");
         arrow.style.width = "0";
         arrow.style.height = "0";
         arrow.style.borderTop = "10px solid transparent";
         arrow.style.borderBottom = "10px solid transparent";
-        arrow.style.borderLeft = "20px solid black";  // Point the arrow right
+        arrow.style.borderLeft = "20px solid black";  // Pointing the arrow right
         arrow.style.position = "relative";
         arrow.style.marginTop = "40px";
-        LinkedContainer.appendChild(arrow);
-
-        let NodeLine = document.createElement("div");
-        NodeLine.style.borderLeft = "3px solid black";
 
         Node.appendChild(NodeLine);
+        LinkedContainer.appendChild(Node);
+        LinkedContainer.appendChild(arrow);
+
+        ArrowArray.push(arrow);
+        NodeArray.push(Node);
+        PointerArray.push(NextTextDiv);
+
+        // To set the Next pointer data. Null until a following node has been made.
+        if(counter > 0){
+            NextTextDiv.innerText = "Null";
+            PointerArray[counter-1].innerText = "Address at Node index " + (counter);
+        }
+
+        // To create the text area for node insertion
+        if(counter === 0){
+            let TextInput = document.createElement("input");
+            TextInput.style.width = "100px";
+            TextInput.type = "text";
+            TextInput.placeholder = "Index:";
+            TextInput.id = "InputIndex";
+            TextIndex = TextInput;
+            let NodeButtonContainer = document.getElementById("Node-Button-Container");
+            NodeButtonContainer.appendChild(TextInput);
+        }
+
+
 
         counter++;
     })
+
+    DeleteNode.addEventListener("click", function (){
+        // To either remove the first element in the linked list or the specified index
+        if(TextIndex && TextIndex.value.trim() === ""){
+            // To remove the first element in the linked list
+            console.log("No index given. Removing the first element...")
+            let removedNode = NodeArray.shift();
+            removedNode.parentNode.removeChild(removedNode);
+            removedNode = ArrowArray.shift();
+            removedNode.parentNode.removeChild(removedNode);
+        }else{
+            // To remove the given index
+            //console.log("Index given as: " + document.getElementById("TextIndex").value + ". Removing that element...");
+            let removedNodes = NodeArray.splice(counter,1);
+            removedNodes[0].parentNode.removeChild(removedNodes[0]);
+            removedNodes = ArrowArray.splice(counter, 1);
+            removedNodes[0].parentNode.removeChild(removedNodes[0]);
+        }
+    })
+
+
+
 
 }
 
