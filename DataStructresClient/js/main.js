@@ -370,10 +370,52 @@ function queues(){
 function linkedList(){
     // Create a main container
     // Place multiple Nodes with two boxes one data one pointer
-    document.getElementById("text-area").innerText = "Linked List Selected! Please create a node to get started";
+    let area = document.getElementById("text-area");
+    area.value =  "Linked List Selected! Please create a node to get started";
+
+    let openingMessage = "Each Node has its data value (Integer, String, Class reference, Ect...)"
+        + " and a pointer to the next node, for which the newly created node's next pointer is set to NULL\n\n"
+        + "Hover over each button for a description!";
+
+
+    let SearchButton = document.createElement("button");
+    SearchButton.style.backgroundColor = 'black';
+    SearchButton.style.color = 'white';
+    SearchButton.style.border = 'none';
+    SearchButton.style.borderRadius = '8px';
+    SearchButton.style.padding = '10px 20px';
+    SearchButton.style.fontSize = '16px';
+    SearchButton.style.cursor = 'pointer';
+    SearchButton.style.transition = 'all 0.3s ease';
+    SearchButton.innerText = "Search for Node";
+    SearchButton.id = "search-button";
+
+    SearchButton.addEventListener('mouseover', function() {
+        SearchButton.style.backgroundColor = 'blue';
+        SearchButton.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+        area.value = "Searching for nodes involves checking all nodes starting from index 0, a simple linear search.\n\n"
+            + "Subsequently, the program will highlight the preceding nodes up till the node needed to be found and then disappear when the node is found.";
+    });
+
+    SearchButton.addEventListener('mouseout', function() {
+        SearchButton.style.backgroundColor = 'black'; // Reset to original
+        SearchButton.style.boxShadow = 'none';
+        area.value = openingMessage;
+    });
+
+    // Active styles
+    SearchButton.addEventListener('mousedown', function() {
+        SearchButton.style.backgroundColor = 'red';
+        SearchButton.style.transform = 'translateY(2px)';
+    });
+
+    SearchButton.addEventListener('mouseup', function() {
+        SearchButton.style.transform = 'translateY(0px)';
+    });
 
     let ButtonContainer = document.getElementById("Node-Button-Container");
     let DeleteNode = document.createElement("button");
+
     DeleteNode.style.backgroundColor = 'black';
     DeleteNode.style.color = 'white';
     DeleteNode.style.border = 'none';
@@ -388,11 +430,14 @@ function linkedList(){
     DeleteNode.addEventListener('mouseover', function() {
         DeleteNode.style.backgroundColor = 'red';
         DeleteNode.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+        area.value = "Delete Node will remove the smallest index if no index is given in the text box. \n\n"
+            + "If the index is given then subsequently the program will remove at the index given.";
     });
 
     DeleteNode.addEventListener('mouseout', function() {
         DeleteNode.style.backgroundColor = 'black'; // Reset to original
         DeleteNode.style.boxShadow = 'none';
+        area.value = openingMessage;
     });
 
     // Active styles
@@ -405,12 +450,14 @@ function linkedList(){
         DeleteNode.style.transform = 'translateY(0px)';
     });
 
+    ButtonContainer.appendChild(SearchButton);
     ButtonContainer.appendChild(DeleteNode);
 
     let counter = 0;
     let NodeArray = [];
     let ArrowArray = [];
     let PointerArray = [];
+    let NodeIDs = [];
 
     let LinkedContainer = document.getElementById("Main-Data-Structure");
     LinkedContainer.style.position = "relative";
@@ -427,8 +474,26 @@ function linkedList(){
 
     document.getElementById("text-area").innerText = "";
 
+    let TextInput = document.createElement("input");
+    TextInput.style.width = "100px";
+    TextInput.type = "text";
+    TextInput.placeholder = "Index:";
+    TextInput.id = "InputIndex";
+    TextIndex = TextInput;
+    let NodeButtonContainer = document.getElementById("Node-Button-Container");
+    NodeButtonContainer.appendChild(TextInput);
+
 
     CreateNode.addEventListener("click", function(){
+
+        if(counter === 0){
+            area.value = "Each Node has its data value (Integer, String, Class reference, Ect...)"
+                + " and a pointer to the next node, for which the newly created node's next pointer is set to NULL\n\n"
+                + "Hover over each button for a description!";
+        }
+
+        NodeIDs[counter] = "Node" + counter;
+        console.log("Node ID " + NodeIDs[counter]);
         // Node creation
         let Node = document.createElement("div");
         Node.style.position = "relative";
@@ -440,10 +505,12 @@ function linkedList(){
         Node.style.display = "flex";
         Node.style.alignItems = "center";
         Node.style.margin = "20px";
+        Node.className = "NodesInStructure";
+        Node.id = NodeIDs[counter];
 
         // Node data text
         let textDiv = document.createElement("div");
-        textDiv.innerText = "Int: " + counter;
+        textDiv.innerText = "Data at Index: " + counter;
         textDiv.style.width = "50%";
         textDiv.style.textAlign = "center";
 
@@ -488,26 +555,37 @@ function linkedList(){
             NextTextDiv.innerText = "Null";
             PointerArray[counter-1].innerText = "Address at Node index " + (counter);
         }
+        counter++;
+    })
 
-        // To create the text area for node insertion
-        if(counter === 0){
-            let TextInput = document.createElement("input");
-            TextInput.style.width = "100px";
-            TextInput.type = "text";
-            TextInput.placeholder = "Index:";
-            TextInput.id = "InputIndex";
-            TextIndex = TextInput;
-            let NodeButtonContainer = document.getElementById("Node-Button-Container");
-            NodeButtonContainer.appendChild(TextInput);
+    SearchButton.addEventListener("click", function (){
+        let Input = document.getElementById("InputIndex");
+        let InputValue = Input.value.trim();
+        console.log("Index received as " + InputValue);
+
+        // To show a classic iterative search to find that index
+        for(let i = 0; i-1 < InputValue; i++){
+            setTimeout(()=>{
+                document.querySelector("#Node" + i).style.borderColor = "red";
+            }, 1000 * i);
         }
 
+        /**
+         * To return the border on all previous nodes to black
+         */
+        for(let x = 0; x < InputValue; x++){
+            setTimeout(() => {
+                document.querySelector("#Node" + x).style.borderColor = "black";
+            }, 4000);
+        }
 
-
-        counter++;
     })
 
     DeleteNode.addEventListener("click", function (){
         // To either remove the first element in the linked list or the specified index
+        if(TextIndex.value.trim() >= NodeArray.length){
+            area.value = "That index is not available!";
+        }
         if(TextIndex && TextIndex.value.trim() === ""){
             // To remove the first element in the linked list
             console.log("No index given. Removing the first element...")
@@ -516,17 +594,13 @@ function linkedList(){
             removedNode = ArrowArray.shift();
             removedNode.parentNode.removeChild(removedNode);
         }else{
-            // To remove the given index
-            //console.log("Index given as: " + document.getElementById("TextIndex").value + ". Removing that element...");
-            let removedNodes = NodeArray.splice(counter,1);
+            // To remove at the given index
+            let removedNodes = NodeArray.splice(TextIndex.value.trim(),1);
             removedNodes[0].parentNode.removeChild(removedNodes[0]);
-            removedNodes = ArrowArray.splice(counter, 1);
+            removedNodes = ArrowArray.splice(TextIndex.value.trim(), 1);
             removedNodes[0].parentNode.removeChild(removedNodes[0]);
         }
     })
-
-
-
 
 }
 
