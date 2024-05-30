@@ -605,5 +605,130 @@ function linkedList(){
 }
 
 function binaryTree(){
+    
+    let openMessage = "Each node is similar to that of a linked list. In a binary tree the key difference is that"
+        + " each node has a left and right pointer instead of one single next pointer."
+        + " They still have data for each node.\n\n"
+        + "Left children are when the data value is less then the parent node, "
+        + "and right children are when the data value is more then the parent node"
+        + "\n\nPlease create a node to get started!";
 
+    let area = document.getElementById("text-area");
+    area.value = openMessage;
+
+    let createNode = document.getElementById("Create-Node");
+
+    let BSTContainer = document.getElementById("Main-Data-Structure");
+    BSTContainer.style.display = "flex";
+    BSTContainer.style.position = "relative";
+    BSTContainer.style.marginTop = "10px";
+    BSTContainer.style.width = "30%";
+    BSTContainer.style.height = "60%";
+    BSTContainer.style.left = "40%";
+    //BSTContainer.style.border = "4px solid black";
+    BSTContainer.style.flexDirection = "column";
+    BSTContainer.style.alignItems = "center";
+
+    let counter = 0;
+    let buttonContainer = document.getElementById("Node-Button-Container");
+
+    let ButtonContainer = document.getElementById("Node-Button-Container");
+    let Delete_Node = document.createElement("button");
+
+    Delete_Node.style.backgroundColor = 'black';
+    Delete_Node.style.color = 'white';
+    Delete_Node.style.border = 'none';
+    Delete_Node.style.borderRadius = '8px';
+    Delete_Node.style.padding = '10px 20px';
+    Delete_Node.style.fontSize = '16px';
+    Delete_Node.style.cursor = 'pointer';
+    Delete_Node.style.transition = 'all 0.3s ease';
+    Delete_Node.innerText = "Delete Node";
+    Delete_Node.id = "delete-button";
+
+    Delete_Node.addEventListener('mouseover', function() {
+        Delete_Node.style.backgroundColor = 'red';
+        Delete_Node.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+        area.value = "Delete Node will remove the smallest index if no index is given in the text box. \n\n"
+            + "If the index is given then subsequently the program will remove at the index given.";
+    });
+
+    Delete_Node.addEventListener('mouseout', function() {
+        Delete_Node.style.backgroundColor = 'black';
+        Delete_Node.style.boxShadow = 'none';
+        area.value = openMessage;
+    });
+
+    Delete_Node.addEventListener('mousedown', function() {
+        Delete_Node.style.backgroundColor = 'red';
+        Delete_Node.style.transform = 'translateY(2px)';
+    });
+
+    Delete_Node.addEventListener('mouseup', function() {
+        Delete_Node.style.transform = 'translateY(0px)';
+    });
+
+    ButtonContainer.appendChild(Delete_Node);
+
+    let TextInput = document.createElement("input");
+    TextInput.style.width = "100px";
+    TextInput.style.height = "40px";
+    TextInput.placeholder = "Data Number: ";
+    TextInput.id = "DataNumber";
+
+    buttonContainer.appendChild(TextInput);
+
+    let NodeArray = [];
+    let InputArray = [];
+    let RightArrayHorz = ["5%","15%","25%","35%","45%","55%","65%","75%","85%","95%"];
+    let LeftArrayHorz = ["-5%","-15%","-25%","-35%","-45%","-55%","-65%","-75%","-85%","-95%"];
+
+    createNode.addEventListener("click", function (){
+        let InputText = document.getElementById("DataNumber").value.trim();
+        // To only create a subsequent node if the root has been created
+        if(InputText === "" && typeof(InputText) !== "number"){
+            area.value = "Please enter a data value for the new node!";
+            return;
+        }
+        InputArray.push(InputText);
+        let NodeBST = document.createElement("div");
+        NodeBST.style.position = "relative";
+        NodeBST.style.background = "green";
+        NodeBST.style.color = "white";
+        NodeBST.style.width = "60px";
+        NodeBST.style.height = "50px";
+        NodeBST.style.border = "2px solid black";
+        NodeBST.style.display = "flex";
+        NodeBST.style.alignItems = "center";
+        NodeBST.style.margin = "20px";
+        NodeBST.className = "NodesInStructure";
+        NodeBST.innerText = "Data: " + InputText;
+        NodeBST.style.textAlign = "center";
+
+        // For subsequent new nodes horizontal placement
+        if(counter > 0){
+            if(InputText < InputArray[counter-1]){
+                console.log("Less then " + LeftArrayHorz[counter])
+                NodeBST.style.left = LeftArrayHorz[counter];
+            }else{
+                console.log("More then " + RightArrayHorz[counter])
+                NodeBST.style.right = RightArrayHorz[counter];
+            }
+        }
+
+        BSTContainer.appendChild(NodeBST);
+
+        let ChildLine = document.createElement("div");
+        ChildLine.style.borderLeft = "7px solid black";
+        ChildLine.style.position = "relative";
+        ChildLine.style.height = "50px";
+        ChildLine.style.width = "5px";
+        ChildLine.style.margin = "2px";
+
+        BSTContainer.appendChild(ChildLine);
+
+        NodeArray.push(NodeBST);
+
+        counter++;
+    })
 }
