@@ -2,6 +2,8 @@
 
 
 function stacks(){
+
+
     // An array storing each UI's position for the box on the stack
     // Using the style.top = " px";
     let TopPXArray = ["535px","470px","405px","340px","275px","210px"];
@@ -24,6 +26,7 @@ function stacks(){
         + "Stacks use PUSH (to add a top element)"
         + " or POP (to remove a top element)\n\n"
         + "Imagine a stack like plates on top of one another."
+    area.style.fontSize = "15px";
     area.value = generalMessage;
 
     // Creating the push button and placing it beside the next step button
@@ -36,8 +39,18 @@ function stacks(){
     pushButton.style.padding = '10px 20px';
     pushButton.style.fontSize = '16px';
     pushButton.style.cursor = 'pointer';
-    pushButton.style.transition = 'all 0.3s ease'; // Smooth transitions
+    pushButton.style.transition = 'all 0.3s ease'; // Smooth
 
+    // For push button click, up and down
+    pushButton.addEventListener('mousedown', function() {
+        pushButton.style.transform = 'translateY(2px)';
+    });
+
+    pushButton.addEventListener("mouseup", function (){
+        pushButton.style.transform = 'translateY(-2px)';
+    })
+
+    // Appending the push button
     let button1div = document.getElementById("button1");
     button1div.appendChild(pushButton);
 
@@ -53,10 +66,20 @@ function stacks(){
     popButton.style.cursor = 'pointer';
     popButton.style.transition = 'all 0.3s ease'; // Smooth transitions
 
+    // Pop button aesthetics
+    popButton.addEventListener('mousedown', function() {
+        popButton.style.transform = 'translateY(2px)';
+    });
+
+    popButton.addEventListener("mouseup", function (){
+        popButton.style.transform = 'translateY(-2px)';
+    })
+
+    // To append the pop button to the button2 position
     let button2div = document.getElementById("button2");
     button2div.appendChild(popButton);
 
-    // Creating the lines for the stack
+    // Creating the lines and container for the stack
     let container = document.getElementById("line-container");
     let newlineLeft = document.createElement("div");
     let newlineRight = document.createElement("div");
@@ -76,18 +99,10 @@ function stacks(){
     container.appendChild(newlineLeft);
     container.appendChild(newlineRight);
 
-    // To create a random number to be the data value of the node
-    let min = Math.ceil(1);
-    let max = Math.floor(100);
-    let randomNumber = (Math.random() * (max-min+1)) + min;
-
-    console.log("The Node data is = " + randomNumber);
-
     // Now on Node creation, a box will be created with a random data value
     // Creating the UI Node box
     let createNodes = document.getElementById("Create-Node");
     let mainStructure =  document.getElementById("Main-Data-Structure");
-    let fullStack = false;
     let nodeCreated = false;
 
     // On click of the Create Node button
@@ -99,6 +114,7 @@ function stacks(){
 
         area.value = generalMessage;
 
+        // To clear the Data Structure if the stack is full
         if (counter === 5){
             while (mainStructure.firstChild) {
                 mainStructure.removeChild(mainStructure.firstChild);
@@ -115,10 +131,11 @@ function stacks(){
         box.style.height = "40px";
         box.style.width = "110px";
         box.innerText = "Data Node " + counter;
-        box.style.alignItems = "centre";
         box.style.lineHeight = "37px";
         box.style.border = "2px solid black";
         box.style.borderRadius = "10px";
+        box.style.alignItems = "center";
+        box.style.justifyContent = "center";
 
         mainStructure.appendChild(box);
         lastCreatedNode = box;
@@ -189,17 +206,14 @@ function stacks(){
         console.log("counter: " + counter);
         nodeCreated = false;
     });
-
 }
 
 function queues(){
 
+    // Setting the queue node positioning
     let PerArrayHorz = ["5%","15%","25%","35%","45%","55%","65%","75%","85%","95%"];
-    let NodeArray = [];
-    let counter = 0;
-
-    // Create the Next Step button
-    let NodeContainer = document.getElementById("Node-Button-Container");
+    let NodeArray = []; // Set an array for the Nodes
+    let counter = 0; // Counter to track number of clicks
 
     let OpenMessage = "Queue's make use of nodes in a formation, and follow a first in; first out process." +
         "Nodes can only be pushed or popped, and never removed if not the head of the Queue.";
@@ -243,6 +257,7 @@ function queues(){
     container.style.top = "30%";
     //container.style.border = "5px solid black";  //TO see the container if needed
 
+    // To create the top line for the Queue
     let newlinetop = document.createElement("div");
     newlinetop.style.borderTop = "6px solid black";
     newlinetop.style.top = "0%";
@@ -250,6 +265,7 @@ function queues(){
     newlinetop.style.width = "100%";
     newlinetop.style.position = "absolute";
 
+    // To create the bottom line for the Queue
     let newlinebottom = document.createElement("div");
     newlinebottom.style.borderTop = "6px solid black";
     newlinebottom.style.top = "30%";
@@ -310,14 +326,20 @@ function queues(){
     let DataCount = 0;
 
     areaText.innerText = OpenMessage;
+    areaText.style.fontSize = "15px";
     createNodeButton.addEventListener("click", function (){
         // Now to create Nodes (div boxes) with some data
         let NodeBox = document.createElement("div");
         NodeBox.style.position = "absolute";
+        NodeBox.style.display = "flex";
         NodeBox.style.background = "#e0f8e0";
-        NodeBox.style.width = "50px";
+        NodeBox.style.width = "50%";
         NodeBox.style.height = "46px";
-        NodeBox.style.border = "2px solid red";
+        NodeBox.style.textAlign = "center";
+        NodeBox.style.alignItems = "center"; // For vertical centering
+        NodeBox.style.justifyContent = "center"; // For horizontal centering
+        NodeBox.style.border = "2px solid black";
+        NodeBox.style.borderRadius = "20px";
         NodeBox.innerText = "Data Element " + DataCount;
         NodeArray[counter] = NodeBox;
         console.log("Node created at counter: " + counter);
@@ -333,6 +355,8 @@ function queues(){
             let area = document.getElementById("text-area");
             area.innerText = "Queue is full!!";
         }else{
+            NodeArray[counter].style.border = "2px solid red";
+            NodeArray[counter].style.width = "8.7%";
             Head.innerText = "Head\n" + NodeArray[0].innerText;
             Tail.innerText = "Tail\n" + NodeArray[NodeArray.length-1].innerText;
             container.appendChild(NodeArray[counter]);
@@ -353,6 +377,7 @@ function queues(){
 
         let dequeuedElement = NodeArray.shift();
         dequeuedElement.style.left = "80%"; // To move the Node top right
+        dequeuedElement.style.border = "2px solid black";
         document.body.appendChild(dequeuedElement); // Appending the popped node to the top right
 
         // Shift remaining nodes on the UI and Array
@@ -371,6 +396,7 @@ function linkedList(){
     // Create a main container
     // Place multiple Nodes with two boxes one data one pointer
     let area = document.getElementById("text-area");
+    area.style.fontSize = "15px";
     area.value =  "Linked List Selected! Please create a node to get started";
 
     let openingMessage = "Each Node has its data value (Integer, String, Class reference, Ect...)"
@@ -615,6 +641,7 @@ function binaryTree(){
 
     let area = document.getElementById("text-area");
     area.value = openMessage;
+    area.style.fontSize = "15px";
 
     let createNode = document.getElementById("Create-Node");
 
