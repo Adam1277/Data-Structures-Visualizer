@@ -2,11 +2,9 @@
 
 
 function stacks(){
-
-
     // An array storing each UI's position for the box on the stack
     // Using the style.top = " px";
-    let TopPXArray = ["535px","470px","405px","340px","275px","210px"];
+    let TopPXArray = ["520px","460px","400px","340px","280px","220px"];
     let listOFNodes = [];
     let currentIndex = 0;
     let counter = 5;
@@ -17,6 +15,7 @@ function stacks(){
     stepsContainer.style.position = "relative";
     stepsContainer.style.justifyContent = "centre";
     stepsContainer.style.alignItems = "centre";
+
 
     // To initialize some basics on the Stack Data Structure
     let area = document.getElementById("text-area");
@@ -83,18 +82,23 @@ function stacks(){
     let container = document.getElementById("line-container");
     let newlineLeft = document.createElement("div");
     let newlineRight = document.createElement("div");
+    container.style.margin = "20px";
+    //container.style.border = "2px solid black";
+    container.style.height = "40%";
 
     newlineLeft.style.borderLeft = "6px solid black";
-    newlineLeft.style.height = "48%";
-    newlineLeft.style.top = "25%";
+    newlineLeft.style.height = "50%";
+    newlineLeft.style.top = "28%";
     newlineLeft.style.left = "42%";
     newlineLeft.style.position = "absolute";
+    newlineLeft.style.marginTop = "30px";
 
     newlineRight.style.borderLeft = "6px solid black";
-    newlineRight.style.height = "48%";
-    newlineRight.style.top = "25%";
+    newlineRight.style.height = "50%";
+    newlineRight.style.top = "28%";
     newlineRight.style.left = "57.9%";
     newlineRight.style.position = "absolute";
+    newlineRight.style.marginTop = "30px";
 
     container.appendChild(newlineLeft);
     container.appendChild(newlineRight);
@@ -108,21 +112,21 @@ function stacks(){
     // On click of the Create Node button
     createNodes.addEventListener("click",function(){
         stepsContainer.style.position = "absolute";
-        stepsContainer.style.top = "72%";
+        stepsContainer.style.top = "82%";
         stepsContainer.style.left = "48.4%";
         stepsContainer.style.right = "50%";
 
         area.value = generalMessage;
 
         // To clear the Data Structure if the stack is full
-        if (counter === 5){
-            while (mainStructure.firstChild) {
-                mainStructure.removeChild(mainStructure.firstChild);
-            }
-            listOFNodes = [];
-            currentIndex = 0;
-            counter = 5;
-        }
+        //if (counter === 5){
+            //while (container.firstChild) {
+                //container.removeChild(mainStructure.firstChild);
+            //}
+            //listOFNodes = [];
+            //currentIndex = 0;
+            //counter = 5;
+        //}
 
         // Created Nodes not in the current Stack yet
         let box = document.createElement("div");
@@ -137,7 +141,7 @@ function stacks(){
         box.style.alignItems = "center";
         box.style.justifyContent = "center";
 
-        mainStructure.appendChild(box);
+        container.appendChild(box)
         lastCreatedNode = box;
         nodeCreated = true;
         console.log("Node created, at counter: " + counter);
@@ -161,7 +165,7 @@ function stacks(){
             currentIndex++;
         }else if (currentIndex === TopPXArray.length) {
             // Reset stack if it's full
-            area.value = "Resetting stack as it reached MAXIMUM capacity."
+            area.value = "Stack is full!!";
             while (mainStructure.firstChild) {
                 mainStructure.removeChild(mainStructure.firstChild);
             }
@@ -186,7 +190,7 @@ function stacks(){
                 document.body.appendChild(clonedNode); // Append to the body or another specific element
 
                 // Remove the current node from the DOM and update the array
-                mainStructure.removeChild(currentNode);
+                container.removeChild(currentNode);
                 listOFNodes[counter] = null;
                 currentIndex = currentIndex - 1;
 
@@ -275,6 +279,7 @@ function queues(){
 
     container.appendChild(newlinetop);
     container.appendChild(newlinebottom);
+    container.style.marginTop = "20px";
 
     let createNodeButton = document.getElementById("Create-Node");
     let NodeCreation = document.getElementById("Main-Data-Structure");
@@ -324,6 +329,7 @@ function queues(){
 
     let areaText = document.getElementById("text-area");
     let DataCount = 0;
+    let createdNode = false;
 
     areaText.innerText = OpenMessage;
     areaText.style.fontSize = "15px";
@@ -345,12 +351,17 @@ function queues(){
         console.log("Node created at counter: " + counter);
         NodeCreation.appendChild(NodeBox);
         DataCount++;
+        createdNode = true;
     })
 
 
     pushButton1.addEventListener("click", function (){
         // To move the Queue
         console.log("Push button");
+        if(!createdNode){
+            document.getElementById("text-area").value = "Please create a node!!";
+            return;
+        }
         if(counter >= 9){
             let area = document.getElementById("text-area");
             area.innerText = "Queue is full!!";
@@ -365,6 +376,7 @@ function queues(){
             console.log("Counter = " + counter + "|| At percentage = " + PerArrayHorz[counter]);
             counter++;
         }
+        createdNode = false;
     })
 
 
