@@ -1,6 +1,3 @@
-
-
-
 function stacks(){
     // An array storing each UI's position for the box on the stack
     // Using the style.top = " px";
@@ -111,6 +108,10 @@ function stacks(){
 
     // On click of the Create Node button
     createNodes.addEventListener("click",function(){
+        if(nodeCreated === true){
+            area.value = "Please push existing node."
+            return;
+        }
         stepsContainer.style.position = "absolute";
         stepsContainer.style.top = "82%";
         stepsContainer.style.left = "48.4%";
@@ -148,8 +149,9 @@ function stacks(){
     })
 
     pushButton.addEventListener("click", function (){
+        area.value = generalMessage;
         if(nodeCreated === false){
-            area.value = "No node created";
+            area.value = "Please create a node!";
         }
 
         if (lastCreatedNode && currentIndex < TopPXArray.length && nodeCreated === true){
@@ -210,6 +212,7 @@ function stacks(){
         console.log("counter: " + counter);
         nodeCreated = false;
     });
+    console.log("function left");
 }
 
 function queues(){
@@ -331,9 +334,10 @@ function queues(){
     let DataCount = 0;
     let createdNode = false;
 
-    areaText.innerText = OpenMessage;
-    areaText.style.fontSize = "15px";
+
     createNodeButton.addEventListener("click", function (){
+        areaText.value = OpenMessage;
+        areaText.style.fontSize = "15px";
         // Now to create Nodes (div boxes) with some data
         let NodeBox = document.createElement("div");
         NodeBox.style.position = "absolute";
@@ -384,6 +388,9 @@ function queues(){
         if (NodeArray.length === 0) {
             console.log("Queue is empty");
             areaText.value = "Queue is empty!";
+            return;
+        }if(createdNode){ //Created node but haven't pushed
+            areaText.value = "Can't dequeue a node if you haven't pushed one!"
             return;
         }
 
@@ -600,7 +607,12 @@ function linkedList(){
         let Input = document.getElementById("InputIndex");
         let InputValue = Input.value.trim();
         console.log("Index received as " + InputValue);
-
+        console.log("Node Array length: " + NodeArray.length);
+        // To stop the index from exceeding the length of the LinkedList
+        if(InputValue >= NodeArray.length){
+            area.value = "Please search for a index within the linked list!"
+            return;
+        }
         // To show a classic iterative search to find that index
         for(let i = 0; i-1 < InputValue; i++){
             setTimeout(()=>{
