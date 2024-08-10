@@ -783,3 +783,28 @@ function binaryTree(){
         counter++;
     })
 }
+
+function returnToIndex(){
+    window.location.href = "index.html";
+}
+
+function sortingPage(){
+    // To link pages
+    window.location.href = "sorting.html";
+}
+
+function bubbleSort(){
+
+}
+
+function selectionSort(){
+
+}
+
+function insertionSort(){
+
+}
+
+function quickSort(){
+
+}

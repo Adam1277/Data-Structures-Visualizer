@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="./js/main.js" defer></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background: linear-gradient(-45deg, purple, deeppink, darkblue, lightskyblue);
+            background-size: 400% 400%;
+            height: 100vh;
+        }
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        #Main{
+            align-items: center;
+            text-align: center;
+            border: 2px solid black;
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+        }
+        #back-button{
+            height: 15%;
+            width: 10%;
+        }
+        .mainButton{
+            margin-top: 10px;
+            margin-left: 2px;
+            margin-right: 2px;
+            background: blue;
+            font-family: monospace;
+            color: white;
+            border-radius: 8px;
+            border-color: blue;
+            height: 15%;
+        }
+        .mainButton:hover{
+            box-shadow: 0 4px 8px rgba(0.4,0.4,0.4,0.4);
+        }
+        h1{
+            font-family: monospace;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="Main">
+        <h1>Sorting Algorithms</h1>
+        <button id="back-button" class = "mainButton" type="button" onclick="returnToIndex()">Homepage</button><br>
+        <button id="bubbleSort-button" class = "mainButton" type="button" onclick="bubbleSort()">Bubble Sort</button>
+        <button id="selectionSort-button" class = "mainButton" type="button" onclick="selectionSort()">Selection Sort</button>
+        <button id="insertionSort-button" class = "mainButton" type="button" onclick="insertionSort()">Insertion Sort</button>
+        <button id="quickSort-button" class = "mainButton" type="button" onclick="quickSort()">Quick Sort</button>
+    </div>
+</body>
+</html>
