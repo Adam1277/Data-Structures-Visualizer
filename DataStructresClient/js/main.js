@@ -789,11 +789,39 @@ function returnToIndex(){
 }
 
 function sortingPage(){
-    // To link pages
     window.location.href = "sorting.html";
 }
 
 function bubbleSort(){
+    let mainContainer = document.getElementById("main-container");
+    let container = document.getElementById("container");
+
+    // Fixed number of data, start with 8 elements
+    // Perform sorting on the data
+    // Have steps as numbers that can store movements of the data
+    let dataArray = [];
+
+    // To populate the container with the data
+    for(let counter = 0; counter < 9; counter++){
+        let data = document.createElement("div");
+        data.style.width = "11%";
+        data.style.border = "2px solid black";
+        let num = Math.floor(Math.random() * 30);
+        data.style.height = num * 3.3333333 + "%";
+        data.textContent = num // To assign a random number
+        data.style.textAlign = "center";
+        dataArray.push(data);
+        container.appendChild(data);
+    }
+
+    // To create the bubble sort algorithm and use the .insertBefore keyword to swap divs
+    for(let count = 0; count < dataArray.length; count++){
+
+    }
+
+
+
+
 
 }
 

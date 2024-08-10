@@ -23,7 +23,7 @@
                 background-position: 0% 50%;
             }
         }
-        #Main{
+        #Heading{
             align-items: center;
             text-align: center;
             border: 2px solid black;
@@ -53,16 +53,70 @@
             font-family: monospace;
             font-size: 30px;
         }
+        #main-container{
+            display: flex;
+            height: 60%;
+            border: 2px solid black;
+            justify-content: center;
+            align-items: center;
+        }
+        #container{
+            border: 2px solid black;
+            width: 60%;
+            height: 75%;
+            display: flex;
+            align-items: flex-end;
+        }
+        .scale{
+            font-size: 20px;
+        }
+        #topScale{
+            top: 37%;
+            position: absolute;
+            bottom: 16%;
+            left: 18%;
+        }
+        #middleScale{
+            position: absolute;
+            left: 18%;
+            bottom: 38%;
+        }
+        #bottomScale{
+            position: absolute;
+            bottom: 15%;
+            left: 19%;
+        }
+        footer{
+            text-align: center;
+        }
+        #refrenceMe{
+
+        }
     </style>
 </head>
 <body>
-    <div id="Main">
+    <div id="Heading">
         <h1>Sorting Algorithms</h1>
+        <div id="refrenceMe">
+            <div class="Des-item">Created by: Adam Levere</div>
+            <div class="Des-item">GitHub: <a href="https://github.com/Adam1277?ocid=AIDcmmli8vlwie_SEM__k_Cj0KCQjw_qexBhCoARIsAFgBlev60OyYeTOD02C7Ec2-gK6dY8uKPm9W5VT_ekwLOFvEg4Z4jfbrEnQaAtWyEALw_wcB_k_">Adam1277</a></div>
+            <div class="Des-item">LinkedIn: <a href="https://www.linkedin.com/in/adam-levere-b97770273/">Adam Levere</a> </div>
+        </div>
         <button id="back-button" class = "mainButton" type="button" onclick="returnToIndex()">Homepage</button><br>
         <button id="bubbleSort-button" class = "mainButton" type="button" onclick="bubbleSort()">Bubble Sort</button>
         <button id="selectionSort-button" class = "mainButton" type="button" onclick="selectionSort()">Selection Sort</button>
         <button id="insertionSort-button" class = "mainButton" type="button" onclick="insertionSort()">Insertion Sort</button>
         <button id="quickSort-button" class = "mainButton" type="button" onclick="quickSort()">Quick Sort</button>
     </div>
+
+    <div id="main-container">
+        <div id="topScale" class="scale">30</div>
+        <div id="middleScale" class="scale">15</div>
+        <div id="bottomScale" class="scale">0</div>
+        <div id="container"></div>
+    </div>
+    <footer>
+        <strong><p>© 2024 Adam Levere. All rights reserved.</p></strong>
+    </footer>
 </body>
 </html>
