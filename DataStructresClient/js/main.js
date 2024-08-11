@@ -811,28 +811,35 @@ function bubbleSort(){
     let startSorting = document.getElementById("start-button");
 
     startSorting.addEventListener("click", function (){
+            console.log("BubbleSort Initiated!");
             let swapped = false;
             let count = 0;
             let loopCount = 0;
+            console.log("Data Array Length = " + dataArray.length);
             do{
                 if(loopCount === dataArray.length * 2){
                     swapped = true;
-                    console.log("Loop ending, max count")
+                    console.log("Loop ending, max count");
                 }else if(count === dataArray.length){
                     count = 0;
-                    console.log("Count resetting")
+                    console.log("Count resetting");
                 }
+                console.log("Data element: " + dataArray[count].textContent);
                 if(dataArray[count].textContent > dataArray[count+1].textContent){
                     let temp = dataArray[count+1];
                     dataArray[count+1] = dataArray[count];
                     dataArray[count] = temp;
-                    container.insertBefore(dataArray[count], dataArray[count+1])
+                    container.insertBefore(dataArray[count], dataArray[count+1]) // check this TODO
                 }
+                console.log("Loop Count: " + loopCount);
+                console.log("Count: " + count);
                 loopCount++;
                 count++;
-            }while(swapped);
-
+            }while(!swapped);
+        console.log("BubbleSort completed");
     });
+
+
 }
 
 function selectionSort(){
