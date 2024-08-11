@@ -1,7 +1,10 @@
+
+
+
 function stacks(){
     // An array storing each UI's position for the box on the stack
     // Using the style.top = " px";
-    let TopPXArray = ["520px","460px","400px","340px","280px","220px"];
+    let TopPXArray = ["510px","450px","390px","330px","270px","210px"];
     let listOFNodes = [];
     let currentIndex = 0;
     let counter = 5;
@@ -108,10 +111,6 @@ function stacks(){
 
     // On click of the Create Node button
     createNodes.addEventListener("click",function(){
-        if(nodeCreated === true){
-            area.value = "Please push existing node."
-            return;
-        }
         stepsContainer.style.position = "absolute";
         stepsContainer.style.top = "82%";
         stepsContainer.style.left = "48.4%";
@@ -149,9 +148,8 @@ function stacks(){
     })
 
     pushButton.addEventListener("click", function (){
-        area.value = generalMessage;
         if(nodeCreated === false){
-            area.value = "Please create a node!";
+            area.value = "No node created";
         }
 
         if (lastCreatedNode && currentIndex < TopPXArray.length && nodeCreated === true){
@@ -212,7 +210,6 @@ function stacks(){
         console.log("counter: " + counter);
         nodeCreated = false;
     });
-    console.log("function left");
 }
 
 function queues(){
@@ -607,12 +604,7 @@ function linkedList(){
         let Input = document.getElementById("InputIndex");
         let InputValue = Input.value.trim();
         console.log("Index received as " + InputValue);
-        console.log("Node Array length: " + NodeArray.length);
-        // To stop the index from exceeding the length of the LinkedList
-        if(InputValue >= NodeArray.length){
-            area.value = "Please search for a index within the linked list!"
-            return;
-        }
+
         // To show a classic iterative search to find that index
         for(let i = 0; i-1 < InputValue; i++){
             setTimeout(()=>{
@@ -815,14 +807,32 @@ function bubbleSort(){
     }
 
     // To create the bubble sort algorithm and use the .insertBefore keyword to swap divs
-    for(let count = 0; count < dataArray.length; count++){
 
-    }
+    let startSorting = document.getElementById("start-button");
 
+    startSorting.addEventListener("click", function (){
+            let swapped = false;
+            let count = 0;
+            let loopCount = 0;
+            do{
+                if(loopCount === dataArray.length * 2){
+                    swapped = true;
+                    console.log("Loop ending, max count")
+                }else if(count === dataArray.length){
+                    count = 0;
+                    console.log("Count resetting")
+                }
+                if(dataArray[count].textContent > dataArray[count+1].textContent){
+                    let temp = dataArray[count+1];
+                    dataArray[count+1] = dataArray[count];
+                    dataArray[count] = temp;
+                    container.insertBefore(dataArray[count], dataArray[count+1])
+                }
+                loopCount++;
+                count++;
+            }while(swapped);
 
-
-
-
+    });
 }
 
 function selectionSort(){

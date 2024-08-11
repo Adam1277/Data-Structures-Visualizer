@@ -33,7 +33,7 @@
         }
         #back-button{
             height: 15%;
-            width: 10%;
+            width: 12%;
         }
         .mainButton{
             margin-top: 10px;
@@ -49,6 +49,7 @@
         .mainButton:hover{
             box-shadow: 0 4px 8px rgba(0.4,0.4,0.4,0.4);
         }
+
         h1{
             font-family: monospace;
             font-size: 30px;
@@ -74,39 +75,45 @@
             top: 37%;
             position: absolute;
             bottom: 16%;
-            left: 18%;
+            left: 17%;
         }
         #middleScale{
             position: absolute;
-            left: 18%;
-            bottom: 38%;
+            left: 17%;
+            bottom: 36%;
         }
         #bottomScale{
             position: absolute;
-            bottom: 15%;
-            left: 19%;
+            bottom: 14%;
+            left: 18%;
         }
         footer{
             text-align: center;
         }
-        #refrenceMe{
-
+        #start-button{
+            margin: 10px;
+            font-family: monospace;
+            color: white;
+            border-radius: 8px;
+            border-color: white;
+            height: 15%;
+            background: blue;
+        }
+        #start-button:hover{
+            box-shadow: 0 4px 8px rgba(0.4, 0.4, 0.4, 0.4);
+            background: green;
         }
     </style>
 </head>
 <body>
     <div id="Heading">
         <h1>Sorting Algorithms</h1>
-        <div id="refrenceMe">
-            <div class="Des-item">Created by: Adam Levere</div>
-            <div class="Des-item">GitHub: <a href="https://github.com/Adam1277?ocid=AIDcmmli8vlwie_SEM__k_Cj0KCQjw_qexBhCoARIsAFgBlev60OyYeTOD02C7Ec2-gK6dY8uKPm9W5VT_ekwLOFvEg4Z4jfbrEnQaAtWyEALw_wcB_k_">Adam1277</a></div>
-            <div class="Des-item">LinkedIn: <a href="https://www.linkedin.com/in/adam-levere-b97770273/">Adam Levere</a> </div>
-        </div>
         <button id="back-button" class = "mainButton" type="button" onclick="returnToIndex()">Homepage</button><br>
         <button id="bubbleSort-button" class = "mainButton" type="button" onclick="bubbleSort()">Bubble Sort</button>
         <button id="selectionSort-button" class = "mainButton" type="button" onclick="selectionSort()">Selection Sort</button>
         <button id="insertionSort-button" class = "mainButton" type="button" onclick="insertionSort()">Insertion Sort</button>
-        <button id="quickSort-button" class = "mainButton" type="button" onclick="quickSort()">Quick Sort</button>
+        <button id="quickSort-button" class = "mainButton" type="button" onclick="quickSort()">Quick Sort</button><br>
+        <button id="start-button">Start Sorting</button>
     </div>
 
     <div id="main-container">
