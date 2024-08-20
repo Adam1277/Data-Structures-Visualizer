@@ -793,9 +793,9 @@ async function bubbleSort(){
     let dataArray = [];
 
     // To populate the container with the data
-    for(let counter = 0; counter < 20; counter++){
+    for(let counter = 0; counter < 30; counter++){
         let data = document.createElement("div");
-        data.style.width = "5.5%";
+        data.style.width = "4%";
         data.style.border = "2px solid black";
         let num = Math.floor(Math.random() * 30);
         data.style.height = num * 3.3333333 + "%";
@@ -814,70 +814,102 @@ async function bubbleSort(){
         let swapped = false;
         let count = 0;
         let loopCount = 0;
+        let swapCount = 0;
         console.log("Data Array Length = " + dataArray.length);
         do {
-            if (loopCount >= dataArray.length ** 2 - 1) {
-                swapped = true;
-                console.log("Loop ending, max count");
-            }
             if (count === dataArray.length - 1) {
                 count = 0;
+                swapCount = 0;
                 console.log("Count resetting");
+                dataArray[dataArray.length - 1].style.backgroundColor = "transparent";
             }
-            await new Promise(resolve => setTimeout(resolve, 100));
+            await new Promise(resolve => setTimeout(resolve, 100 - loopCount/5));
             console.log("Data element: " + dataArray[count].textContent);
             if (parseInt(dataArray[count].textContent) > parseInt(dataArray[count + 1].textContent)) {
                 console.log("Swap!!!");
+                swapCount = 0;
                 container.insertBefore(dataArray[count + 1], dataArray[count]);
                 let temp = dataArray[count + 1];
                 dataArray[count + 1] = dataArray[count];
                 dataArray[count] = temp;
+            }else{
+                swapCount++;
+            }
+            if(swapCount === dataArray.length - 1){
+                swapped = true;
             }
             console.log("Loop Count: " + loopCount);
             console.log("Count: " + count);
             loopCount++;
+            dataArray[count].style.backgroundColor = "transparent";
             count++;
+            dataArray[count].style.backgroundColor = "red";
         } while (!swapped);
+        dataArray[dataArray.length - 1].style.backgroundColor = "transparent";
         console.log("BubbleSort completed");
     });
 
 }
 
 async function selectionSort() {
-    let containerMain = document.getElementById("container");
-    let dataArray1 = [];
-
+    let containerMain1 = document.getElementById("container");
+    let dataArray123 = [];
 
     for (let counter = 0; counter < 9; counter++) {
         let data1 = document.createElement("div");
-        data1.style.width = "11%";
+        data1.style.width = "5%";
         data1.style.border = "2px solid black";
         let num = Math.floor(Math.random() * 30);
         data1.style.height = num * 3.3333333 + "%";
         data1.textContent = num // To assign a random number
         data1.style.textAlign = "center";
-        dataArray1.push(data1);
-        containerMain.appendChild(data1);
+        dataArray123.push(data1);
+        containerMain1.appendChild(data1);
     }
 
-    document.getElementById("selectionSort-button").addEventListener("click", function () {
-        let minimum = 0;
-        for (let sorted = 0; sorted < 8; sorted++) { // Sorted set
-            for (let min = sorted; min < dataArray1.length - sorted; min++) { // Unsorted set
-                if (dataArray1[min] < minimum) {
-                    minimum = dataArray1[min]; // Finds the smallest element in the array
-                }
-            }
-            console.log("Swapping with Minimum");
-            containerMain.insertBefore(dataArray1[sorted], dataArray1[minimum]);
-            let temp = dataArray1[count + 1];
-            dataArray1[count + 1] = dataArray1[count];
-            dataArray1[count] = temp;
-        }
+    document.getElementById("start-button").addEventListener("click", async function () {
+
     })
 }
-function insertionSort(){
 
+function insertionSort(){
+    let containerMain = document.getElementById("container");
+    let dataArray1 = [];
+
+    for (let counter = 0; counter < 9; counter++) {
+        let data3 = document.createElement("div");
+        data3.style.width = "5%";
+        data3.style.border = "2px solid black";
+        let um = Math.floor(Math.random() * 30);
+        data3.style.height = num * 3.3333333 + "%";
+        data3.textContent = num // To assign a random number
+        data3.style.textAlign = "center";
+        dataArray1.push(data3);
+        containerMain.appendChild(data3);
+    }
+
+    document.getElementById("start-button").addEventListener("click", async function () {
+        let count = 1;
+        let tempCount = 0;
+
+        for(let sorted = 0; sorted < dataArray1.length; sorted++){
+            if(parseInt(dataArray1[sorted].textContent) > parseInt(dataArray1[count].textContent)){
+                tempCount = count;
+                count = 0;
+                while(count !== sorted + 1){
+                    if(dataArray1[count] > dataArray1[count+1]){
+                        containerMain.insertBefore(dataArray1[count], dataArray1[count+1]);
+                        let temp = dataArray1[count + 1];
+                        dataArray1[count + 1] = dataArray1[count];
+                        dataArray1[count] = temp;
+                    }
+                    count++;
+                }
+                count = tempCount;
+                count++;
+            }
+        }
+    })
 }
 
 function quickSort(){
