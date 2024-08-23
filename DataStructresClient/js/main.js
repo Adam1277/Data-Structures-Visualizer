@@ -784,20 +784,16 @@ function sortingPage(){
     window.location.href = "sorting.html";
 }
 
-async function bubbleSort(){
+function loadContainer(){
     let container = document.getElementById("container");
-
-    // Fixed number of data, start with 8 elements
-    // Perform sorting on the data
-    // Have steps as numbers that can store movements of the data
-    let dataArray = [];
+    let dataArray = []; // For all data elements
 
     // To populate the container with the data
     for(let counter = 0; counter < 30; counter++){
         let data = document.createElement("div");
         data.style.width = "4%";
         data.style.border = "2px solid black";
-        let num = Math.floor(Math.random() * 30);
+        let num = Math.floor(Math.random() * (29 - 2 + 1)) + 2;
         data.style.height = num * 3.3333333 + "%";
         data.textContent = num // To assign a random number
         data.style.textAlign = "center";
@@ -805,61 +801,65 @@ async function bubbleSort(){
         container.appendChild(data);
     }
 
+    console.log("Container Loaded")
+
+    document.getElementById("start-button").addEventListener("click", function (){
+        bubbleSort(dataArray).then(()=>{
+            console.log("Bubble Sort has Completed");
+        }).catch((error) =>{
+            console.log("Error during Bubble Sort Method");
+        });
+    })
+}
+
+async function bubbleSort(dataArray){
     // To create the bubble sort algorithm and use the .insertBefore keyword to swap divs
-
     let startSorting = document.getElementById("start-button");
+    let container = document.getElementById("container");
 
-    startSorting.addEventListener("click", async function () {
-        console.log("BubbleSort Initiated!");
-        let swapped = false;
-        let count = 0;
-        let loopCount = 0;
-        let swapCount = 0;
-        console.log("Data Array Length = " + dataArray.length);
-        do {
-            if (count === dataArray.length - 1) {
-                count = 0;
-                swapCount = 0;
-                console.log("Count resetting");
-                dataArray[dataArray.length - 1].style.backgroundColor = "transparent";
-            }
-            await new Promise(resolve => setTimeout(resolve, 100 - loopCount/5));
-            console.log("Data element: " + dataArray[count].textContent);
-            if (parseInt(dataArray[count].textContent) > parseInt(dataArray[count + 1].textContent)) {
-                console.log("Swap!!!");
-                swapCount = 0;
-                container.insertBefore(dataArray[count + 1], dataArray[count]);
-                let temp = dataArray[count + 1];
-                dataArray[count + 1] = dataArray[count];
-                dataArray[count] = temp;
-            }else{
-                swapCount++;
-            }
-            if(swapCount === dataArray.length - 1){
-                swapped = true;
-            }
-            console.log("Loop Count: " + loopCount);
-            console.log("Count: " + count);
-            loopCount++;
-            dataArray[count].style.backgroundColor = "transparent";
-            count++;
-            dataArray[count].style.backgroundColor = "red";
-        } while (!swapped);
-        dataArray[dataArray.length - 1].style.backgroundColor = "transparent";
-        console.log("BubbleSort completed");
-    });
-
+    console.log("BubbleSort Initiated!");
+    let count = 0;
+    let loopCount = 0;
+    let swapCount = 0;
+    console.log("Data Array Length = " + dataArray.length);
+    do {
+        if (count === dataArray.length - 1) {
+            count = 0;
+            swapCount = 0;
+            console.log("Count resetting");
+            dataArray[dataArray.length - 1].style.backgroundColor = "transparent";
+        }
+        // To slow the algorithm after time progresses
+        await new Promise(resolve => setTimeout(resolve, 100 - loopCount/5));
+        if (parseInt(dataArray[count].textContent) > parseInt(dataArray[count + 1].textContent)) {
+            swapCount = 0;
+            container.insertBefore(dataArray[count + 1], dataArray[count]);
+            let temp = dataArray[count + 1];
+            dataArray[count + 1] = dataArray[count];
+            dataArray[count] = temp;
+        }else{
+            swapCount++;
+        }
+        loopCount++;
+        dataArray[count].style.backgroundColor = "transparent";
+        count++;
+        dataArray[count].style.backgroundColor = "red";
+    } while (swapCount !== dataArray.length - 1);
+    // To account for last node being coloured
+    dataArray[dataArray.length - 1].style.backgroundColor = "transparent";
+    console.log("BubbleSort completed");
 }
 
 async function selectionSort() {
     let containerMain1 = document.getElementById("container");
+    document.getElementById("sele")
     let dataArray123 = [];
 
-    for (let counter = 0; counter < 9; counter++) {
+    for (let counter = 0; counter < 30; counter++) {
         let data1 = document.createElement("div");
         data1.style.width = "5%";
         data1.style.border = "2px solid black";
-        let num = Math.floor(Math.random() * 30);
+        let num = Math.floor(Math.random() * (30 - 2 + 1)) + 2;
         data1.style.height = num * 3.3333333 + "%";
         data1.textContent = num // To assign a random number
         data1.style.textAlign = "center";
@@ -876,7 +876,7 @@ function insertionSort(){
     let containerMain = document.getElementById("container");
     let dataArray1 = [];
 
-    for (let counter = 0; counter < 9; counter++) {
+    for (let counter = 0; counter < 30; counter++) {
         let data3 = document.createElement("div");
         data3.style.width = "5%";
         data3.style.border = "2px solid black";
