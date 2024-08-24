@@ -4,7 +4,7 @@
 function stacks(){
     // An array storing each UI's position for the box on the stack
     // Using the style.top = " px";
-    let TopPXArray = ["510px","450px","390px","330px","270px","210px"];
+    let TopPXArray = ["490px","440px","390px","340px","290px","240px"];
     let listOFNodes = [];
     let currentIndex = 0;
     let counter = 5;
@@ -131,8 +131,8 @@ function stacks(){
         // Created Nodes not in the current Stack yet
         let box = document.createElement("div");
         box.style.display = "flex";
-        box.style.backgroundColor = "white";
-        box.style.height = "40px";
+        box.style.backgroundColor = "lightgrey";
+        box.style.height = "35px";
         box.style.width = "110px";
         box.innerText = "Data Node " + counter;
         box.style.lineHeight = "37px";
@@ -805,16 +805,15 @@ function loadContainer(){
 
     document.getElementById("start-button").addEventListener("click", function (){
         bubbleSort(dataArray).then(()=>{
-            console.log("Bubble Sort has Completed");
+            console.log("Sort has completed");
         }).catch((error) =>{
-            console.log("Error during Bubble Sort Method");
+            console.log("Error during Sort Method");
         });
     })
 }
 
 async function bubbleSort(dataArray){
     // To create the bubble sort algorithm and use the .insertBefore keyword to swap divs
-    let startSorting = document.getElementById("start-button");
     let container = document.getElementById("container");
 
     console.log("BubbleSort Initiated!");
@@ -850,26 +849,26 @@ async function bubbleSort(dataArray){
     console.log("BubbleSort completed");
 }
 
-async function selectionSort() {
-    let containerMain1 = document.getElementById("container");
-    document.getElementById("sele")
-    let dataArray123 = [];
+async function selectionSort(dataArray) {
+    console.log("Selection Sort Selected");
+    let container = document.getElementById("container");
+    let size = dataArray.length;
 
-    for (let counter = 0; counter < 30; counter++) {
-        let data1 = document.createElement("div");
-        data1.style.width = "5%";
-        data1.style.border = "2px solid black";
-        let num = Math.floor(Math.random() * (30 - 2 + 1)) + 2;
-        data1.style.height = num * 3.3333333 + "%";
-        data1.textContent = num // To assign a random number
-        data1.style.textAlign = "center";
-        dataArray123.push(data1);
-        containerMain1.appendChild(data1);
+    for(let step = 0; step < size - 1; step++){
+        let min = step;
+
+        for(let i = step + 1; i < size; i++){
+            if(parseInt(dataArray[i].textContent) < parseInt(dataArray[min])){
+                min = i;
+            }
+        }
+        let tempNode = dataArray[step]; // Store a reference to the original node (no cloning needed)
+        container.replaceChild(dataArray[min], dataArray[step]);
+        container.insertBefore(tempNode, dataArray[min].nextSibling);
+        let temp = dataArray[step];
+        dataArray[step] = dataArray[min];
+        dataArray[min] = temp;
     }
-
-    document.getElementById("start-button").addEventListener("click", async function () {
-
-    })
 }
 
 function insertionSort(){
