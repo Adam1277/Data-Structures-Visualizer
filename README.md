@@ -1,5 +1,5 @@
 # Data-Structures-Visualizer
-### 750+ lines of JavaScript
+### 900+ lines of JavaScript
 A comprehensive project to showcase data structure functionalities and ideas. It was created entirely with HTML, CSS, and Javascript. This project was to create an interactive model for visualizing popular and efficient data structures, which showcases web development technologies. 
 
 Upcoming Requirements:
