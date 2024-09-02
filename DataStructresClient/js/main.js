@@ -804,7 +804,7 @@ function loadContainer(){
     console.log("Container Loaded")
 
     document.getElementById("start-button").addEventListener("click", function (){
-        bubbleSort(dataArray).then(()=>{
+        selectionSort(dataArray).then(()=>{
             console.log("Sort has completed");
         }).catch((error) =>{
             console.log("Error during Sort Method");
@@ -856,19 +856,31 @@ async function selectionSort(dataArray) {
 
     for(let step = 0; step < size - 1; step++){
         let min = step;
+        dataArray[step].style.backgroundColor = "red";
 
         for(let i = step + 1; i < size; i++){
-            if(parseInt(dataArray[i].textContent) < parseInt(dataArray[min])){
+            if(parseInt(dataArray[i].textContent) < parseInt(dataArray[min].textContent)){
                 min = i;
             }
         }
-        let tempNode = dataArray[step]; // Store a reference to the original node (no cloning needed)
-        container.replaceChild(dataArray[min], dataArray[step]);
-        container.insertBefore(tempNode, dataArray[min].nextSibling);
-        let temp = dataArray[step];
+        dataArray[min].style.backgroundColor = "red";
+        console.log("Step: " + step + ", Min: " + min);
+        await new Promise(resolve => setTimeout(resolve, 100));
+        let temp = document.createElement("div");
+        container.insertBefore(temp, dataArray[step]);
+        container.insertBefore(dataArray[step], dataArray[min]);
+        container.insertBefore(dataArray[min], temp);
+        container.removeChild(temp);
+
+        dataArray[step].style.backgroundColor = "transparent";
+
+        // Correct implementation of swapping divs in the Array
+        let tempArray = dataArray[step];
         dataArray[step] = dataArray[min];
-        dataArray[min] = temp;
+        dataArray[min] = tempArray;
     }
+
+    console.log("Selection Sort Completed");
 }
 
 function insertionSort(){
