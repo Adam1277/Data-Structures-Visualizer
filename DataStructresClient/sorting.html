@@ -28,7 +28,7 @@
             text-align: center;
             border: 2px solid black;
             width: 100%;
-            height: 200px;
+            height: 270px;
             border-radius: 15px;
         }
         #back-button{
@@ -44,7 +44,7 @@
             color: white;
             border-radius: 8px;
             border-color: blue;
-            height: 15%;
+            height: 10%;
         }
         .mainButton:hover{
             box-shadow: 0 4px 8px rgba(0.4,0.4,0.4,0.4);
@@ -109,8 +109,9 @@
     <div id="Heading">
         <h1>Sorting Algorithms</h1>
         <button id="back-button" class = "mainButton" type="button" onclick="returnToIndex()">Homepage</button><br>
-        <button id="bubbleSort-button" class = "mainButton" type="button" onclick="loadContainer()">Bubble Sort</button>
-        <button id="selectionSort-button" class = "mainButton" type="button" onclick="loadContainer()">Selection Sort</button>
+        <button id="load-container-button" class = "mainButton" type="button" onclick="loadContainer()">Load Container</button><br>
+        <button id="bubbleSort-button" class = "mainButton" type="button">Bubble Sort</button>
+        <button id="selectionSort-button" class = "mainButton" type="button">Selection Sort</button>
         <button id="insertionSort-button" class = "mainButton" type="button" onclick="insertionSort()">Insertion Sort</button>
         <button id="quickSort-button" class = "mainButton" type="button" onclick="quickSort()">Quick Sort</button><br>
         <button id="start-button">Start Sorting</button>

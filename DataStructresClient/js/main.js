@@ -803,12 +803,24 @@ function loadContainer(){
 
     console.log("Container Loaded")
 
-    document.getElementById("start-button").addEventListener("click", function (){
-        selectionSort(dataArray).then(()=>{
-            console.log("Sort has completed");
-        }).catch((error) =>{
-            console.log("Error during Sort Method");
-        });
+    document.getElementById("bubbleSort-button").addEventListener("click", function (){
+        document.getElementById("start-button").addEventListener("click", function (){
+            bubbleSort(dataArray).then(()=>{
+                console.log("Bubble Sort has completed");
+            }).catch((error) =>{
+                console.log("Error during Bubble Sort Method");
+            });
+        })
+    })
+
+    document.getElementById("selectionSort-button").addEventListener("click", function (){
+        document.getElementById("start-button").addEventListener("click", function (){
+            selectionSort(dataArray).then(()=>{
+                console.log("Selection Sort has completed");
+            }).catch((error) =>{
+                console.log("Error during Selection Sort Method");
+            });
+        })
     })
 }
 
