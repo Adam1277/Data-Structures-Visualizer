@@ -4,7 +4,7 @@
 function stacks(){
     // An array storing each UI's position for the box on the stack
     // Using the style.top = " px";
-    let TopPXArray = ["490px","440px","390px","340px","290px","240px"];
+    let TopPXArray = ["75%","68%","61%","54%","47%","40%"];
     let listOFNodes = [];
     let currentIndex = 0;
     let counter = 5;
@@ -784,7 +784,7 @@ function sortingPage(){
     window.location.href = "sorting.html";
 }
 
-function loadContainer(){
+function loadContainerSort(){
     let container = document.getElementById("container");
     let dataArray = []; // For all data elements
 
@@ -792,16 +792,16 @@ function loadContainer(){
     for(let counter = 0; counter < 30; counter++){
         let data = document.createElement("div");
         data.style.width = "4%";
-        data.style.border = "2px solid black";
         let num = Math.floor(Math.random() * (29 - 2 + 1)) + 2;
-        data.style.height = num * 3.3333333 + "%";
         data.textContent = num // To assign a random number
+        data.style.border = "2px solid black";
+        data.style.height = num * 3.3333333 + "%";
         data.style.textAlign = "center";
         dataArray.push(data);
         container.appendChild(data);
     }
 
-    console.log("Container Loaded")
+    console.log("Container Loaded");
 
     document.getElementById("bubbleSort-button").addEventListener("click", function (){
         document.getElementById("start-button").addEventListener("click", function (){
@@ -819,6 +819,17 @@ function loadContainer(){
                 console.log("Selection Sort has completed");
             }).catch((error) =>{
                 console.log("Error during Selection Sort Method");
+            });
+        })
+    })
+
+    document.getElementById("insertionSort-button").addEventListener("click", function (){
+        console.log("Insertion Sort Selected");
+        document.getElementById("start-button").addEventListener("click", function (){
+            insertionSort(dataArray).then(()=>{
+                console.log("Insertion Sort has completed");
+            }).catch((error) =>{
+                console.log("Error during Insertion Sort Method");
             });
         })
     })
@@ -841,7 +852,7 @@ async function bubbleSort(dataArray){
             dataArray[dataArray.length - 1].style.backgroundColor = "transparent";
         }
         // To slow the algorithm after time progresses
-        await new Promise(resolve => setTimeout(resolve, 100 - loopCount/5));
+        await new Promise(resolve => setTimeout(resolve, 100));
         if (parseInt(dataArray[count].textContent) > parseInt(dataArray[count + 1].textContent)) {
             swapCount = 0;
             container.insertBefore(dataArray[count + 1], dataArray[count]);
@@ -868,14 +879,15 @@ async function selectionSort(dataArray) {
 
     for(let step = 0; step < size - 1; step++){
         let min = step;
-        dataArray[step].style.backgroundColor = "red";
+        dataArray[step].style.backgroundColor = "transparent";
 
         for(let i = step + 1; i < size; i++){
             if(parseInt(dataArray[i].textContent) < parseInt(dataArray[min].textContent)){
                 min = i;
             }
         }
-        dataArray[min].style.backgroundColor = "red";
+        dataArray[min].style.backgroundColor = "blue";
+        //dataArray[min].style.backgroundColor = "red";
         console.log("Step: " + step + ", Min: " + min);
         await new Promise(resolve => setTimeout(resolve, 100));
         let temp = document.createElement("div");
@@ -886,6 +898,8 @@ async function selectionSort(dataArray) {
 
         dataArray[step].style.backgroundColor = "transparent";
 
+        //dataArray[step].style.backgroundColor = "transparent";
+
         // Correct implementation of swapping divs in the Array
         let tempArray = dataArray[step];
         dataArray[step] = dataArray[min];
@@ -895,46 +909,89 @@ async function selectionSort(dataArray) {
     console.log("Selection Sort Completed");
 }
 
-function insertionSort(){
-    let containerMain = document.getElementById("container");
-    let dataArray1 = [];
+async function insertionSort(dataArray){
+    let container = document.getElementById("container");
 
-    for (let counter = 0; counter < 30; counter++) {
-        let data3 = document.createElement("div");
-        data3.style.width = "5%";
-        data3.style.border = "2px solid black";
-        let um = Math.floor(Math.random() * 30);
-        data3.style.height = num * 3.3333333 + "%";
-        data3.textContent = num // To assign a random number
-        data3.style.textAlign = "center";
-        dataArray1.push(data3);
-        containerMain.appendChild(data3);
+    let length = dataArray.length;
+    let current = dataArray[0]; // First number in the list
+    let j = 0;
+
+    console.log("Insertion Sort Started");
+
+    for(let sorted = 1; sorted < length; sorted++){
+        dataArray[sorted].style.backgroundColor = "orange";
+        current = dataArray[sorted];
+        j = sorted - 1;
+
+        while(j>= 0 && parseInt(current.textContent) < parseInt(dataArray[j].textContent)){
+            dataArray[j + 1] = dataArray[j]; // To shift all elements past the element
+            j--;
+        }
+        dataArray[j + 1] = current;
+
+        dataArray.innerHTML = '';
+        dataArray.forEach(div => container.appendChild(div));
+
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    console.log("Insertion Sort end");
+}
+
+async function quickSort(){
+}
+
+function loadContainerSearch(){
+    let container1 = document.getElementById("container-search");
+    let dataArray = []; // For all data elements
+
+    // To populate the container with the data
+    for(let counter = 0; counter < 40; counter++){
+        let data1 = document.createElement("div");
+        data1.style.width = "2.5%";
+        let num = Math.floor(Math.random() * (29 - 2 + 1)) + 2;
+        data1.textContent = num // To assign a random number
+        data1.style.border = "3px solid rgba(255, 255, 255, 0.8)";
+        data1.style.color = "white";
+        data1.style.height = num * 3.3333333 + "%";
+        data1.style.textAlign = "center";
+        dataArray.push(data1);
+        container1.appendChild(data1);
     }
 
-    document.getElementById("start-button").addEventListener("click", async function () {
-        let count = 1;
-        let tempCount = 0;
+    console.log("Search Container Loaded");
 
-        for(let sorted = 0; sorted < dataArray1.length; sorted++){
-            if(parseInt(dataArray1[sorted].textContent) > parseInt(dataArray1[count].textContent)){
-                tempCount = count;
-                count = 0;
-                while(count !== sorted + 1){
-                    if(dataArray1[count] > dataArray1[count+1]){
-                        containerMain.insertBefore(dataArray1[count], dataArray1[count+1]);
-                        let temp = dataArray1[count + 1];
-                        dataArray1[count + 1] = dataArray1[count];
-                        dataArray1[count] = temp;
-                    }
-                    count++;
-                }
-                count = tempCount;
-                count++;
-            }
-        }
+    document.getElementById("linear-search-button").addEventListener("click", function (){
+        console.log("Linear Search Selected");
+        linearSearch(dataArray).then(()=>{
+            console.log("Linear Search has completed");
+        }).catch((error) =>{
+            console.log("Error in Linear Search Method");
+        });
     })
 }
 
-function quickSort(){
+async function linearSearch(dataArray){
+    let container = document.getElementById("container");
 
+    let target = document.getElementById("num-input").value;
+    target = parseInt(target, 10);
+
+    console.log("Linear Search Started");
+
+    for(let i = 0; i < dataArray.length; i++){
+        await new Promise(resolve => setTimeout(resolve, 100));
+        if(parseInt(dataArray[i].textContent) === target){
+            console.log("Target Found");
+            dataArray[i].style.background = "green";
+        }else{
+            dataArray[i].style.border = "3px solid orange";
+        }
+        console.log("Element: " + parseInt(dataArray[i].textContent));
+    }
+
+    console.log("Linear Search Complete");
+}
+
+function searchingPage(){
+    window.location.href = "searching.html";
 }

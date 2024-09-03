@@ -32,8 +32,8 @@
             border-radius: 15px;
         }
         #back-button{
-            height: 15%;
-            width: 12%;
+            height: 10%;
+            width: 9%;
         }
         .mainButton{
             margin-top: 10px;
@@ -57,7 +57,7 @@
         #main-container{
             display: flex;
             height: 60%;
-            border: 2px solid black;
+            /* border: 2px solid black; */
             justify-content: center;
             align-items: center;
         }
@@ -67,25 +67,6 @@
             height: 75%;
             display: flex;
             align-items: flex-end;
-        }
-        .scale{
-            font-size: 20px;
-        }
-        #topScale{
-            top: 37%;
-            position: absolute;
-            bottom: 16%;
-            left: 17%;
-        }
-        #middleScale{
-            position: absolute;
-            left: 17%;
-            bottom: 36%;
-        }
-        #bottomScale{
-            position: absolute;
-            bottom: 14%;
-            left: 18%;
         }
         footer{
             text-align: center;
@@ -108,19 +89,17 @@
 <body>
     <div id="Heading">
         <h1>Sorting Algorithms</h1>
-        <button id="back-button" class = "mainButton" type="button" onclick="returnToIndex()">Homepage</button><br>
-        <button id="load-container-button" class = "mainButton" type="button" onclick="loadContainer()">Load Container</button><br>
+        <button id="back-button" class = "mainButton" type="button" onclick="returnToIndex()">Homepage</button>
+        <button id="searchButton" class = "mainButton" type="button" onclick="searchingPage()">Searching</button><br>
+        <button id="load-container-button" class = "mainButton" type="button" onclick="loadContainerSort()">Load Container</button><br>
         <button id="bubbleSort-button" class = "mainButton" type="button">Bubble Sort</button>
         <button id="selectionSort-button" class = "mainButton" type="button">Selection Sort</button>
-        <button id="insertionSort-button" class = "mainButton" type="button" onclick="insertionSort()">Insertion Sort</button>
-        <button id="quickSort-button" class = "mainButton" type="button" onclick="quickSort()">Quick Sort</button><br>
+        <button id="insertionSort-button" class = "mainButton" type="button">Insertion Sort</button>
+        <button id="quickSort-button" class = "mainButton" type="button">Quick Sort</button><br>
         <button id="start-button">Start Sorting</button>
     </div>
 
     <div id="main-container">
-        <div id="topScale" class="scale">30</div>
-        <div id="middleScale" class="scale">15</div>
-        <div id="bottomScale" class="scale">0</div>
         <div id="container"></div>
     </div>
     <footer>

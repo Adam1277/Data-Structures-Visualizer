@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="./js/main.js" defer></script>
+    <meta charset="UTF-8">
+    <title>Searching</title>
+  <style>
+    body {
+      background: linear-gradient(-45deg, red, black);
+      background-size: 400% 400%;
+      height: 100vh;
+    }
+    #Heading{
+      align-items: center;
+      text-align: center;
+      border: 2px solid black;
+      width: 100%;
+      height: 270px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+    #main-container{
+      display: flex;
+      height: 60%;
+      /* border: 2px solid black; */
+      justify-content: center;
+      align-items: center;
+    }
+    h1{
+       font-family: monospace;
+       font-size: 30px;
+       color: white;
+    }
+    .mainButton{
+      margin-top: 10px;
+      margin-left: 2px;
+      margin-right: 2px;
+      background: white;
+      font-family: monospace;
+      border-radius: 8px;
+      border-color: white;
+      height: 10%;
+      color: black;
+    }
+    #container-search{
+      border: 2px solid black;
+      width: 60%;
+      height: 75%;
+      display: flex;
+      align-items: flex-end;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+    #count-info{
+
+    }
+    footer{
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div id="Heading">
+  <h1>Searching Algorithms</h1>
+  <button id="home-button" class = "mainButton" type="button" onclick="returnToIndex()">Homepage</button>
+  <button id="sort-button" class = "mainButton" type="button" onclick="sortingPage()">Sorting</button><br>
+  <button id="load-button" class = "mainButton" type="button" onclick="loadContainerSearch()">Load Container</button><br>
+  <button id="linear-search-button" class = "mainButton" type="button">Linear Search</button>
+  <button id="Binary-search-button" class = "mainButton" type="button">Binary Search</button>
+  <button id="Jump-search-button" class = "mainButton" type="button">Jump Search</button><br>
+  <input id="num-input" class = "mainButton" type="text" placeholder="Target Number">
+</div>
+<div id="main-container">
+  <div id="count-info"></div>
+  <div id="container-search"></div>
+</div>
+<footer>
+  <strong><p>© 2024 Adam Levere. All rights reserved.</p></strong>
+</footer>
+</body>
+</html>
