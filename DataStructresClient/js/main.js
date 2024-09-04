@@ -784,14 +784,21 @@ function sortingPage(){
     window.location.href = "sorting.html";
 }
 
+document.addEventListener("DOMContentLoaded", function(){
+    document.getElementById("start-button").disabled = true;
+})
+
 function loadContainerSort(){
     let container = document.getElementById("container");
     let dataArray = []; // For all data elements
+    let numElements = document.getElementById("value-number").value;
+    let elementWidth = 0;
 
     // To populate the container with the data
-    for(let counter = 0; counter < 30; counter++){
+    for(let counter = 0; counter < numElements; counter++){
         let data = document.createElement("div");
-        data.style.width = "4%";
+        elementWidth = 120 / numElements; // Container width is 80, so we divide by number of elements
+        data.style.width = elementWidth.toString() + "%";
         let num = Math.floor(Math.random() * (29 - 2 + 1)) + 2;
         data.textContent = num // To assign a random number
         data.style.border = "2px solid black";
@@ -801,6 +808,7 @@ function loadContainerSort(){
         container.appendChild(data);
     }
 
+    document.getElementById("start-button").disabled = false;
     console.log("Container Loaded");
 
     document.getElementById("bubbleSort-button").addEventListener("click", function (){
@@ -928,6 +936,7 @@ async function insertionSort(dataArray){
             j--;
         }
         dataArray[j + 1] = current;
+        dataArray[sorted].style.backgroundColor = "transparent";
 
         dataArray.innerHTML = '';
         dataArray.forEach(div => container.appendChild(div));
