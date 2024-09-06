@@ -800,8 +800,13 @@ function loadContainerSort(){
         elementWidth = 120 / numElements; // Container width is 80, so we divide by number of elements
         data.style.width = elementWidth.toString() + "%";
         let num = Math.floor(Math.random() * (29 - 2 + 1)) + 2;
-        data.textContent = num // To assign a random number
-        data.style.border = "2px solid black";
+        if(numElements <= 62){
+            data.textContent = num;
+            data.style.border = "2px solid black";
+        }else{
+            data.style.border = "0.5px solid black";
+        }
+        data.title = num // To assign a random number
         data.style.height = num * 3.3333333 + "%";
         data.style.textAlign = "center";
         dataArray.push(data);
@@ -861,7 +866,7 @@ async function bubbleSort(dataArray){
         }
         // To slow the algorithm after time progresses
         await new Promise(resolve => setTimeout(resolve, 100));
-        if (parseInt(dataArray[count].textContent) > parseInt(dataArray[count + 1].textContent)) {
+        if (parseInt(dataArray[count].title) > parseInt(dataArray[count + 1].title)) {
             swapCount = 0;
             container.insertBefore(dataArray[count + 1], dataArray[count]);
             let temp = dataArray[count + 1];
@@ -890,7 +895,7 @@ async function selectionSort(dataArray) {
         dataArray[step].style.backgroundColor = "transparent";
 
         for(let i = step + 1; i < size; i++){
-            if(parseInt(dataArray[i].textContent) < parseInt(dataArray[min].textContent)){
+            if(parseInt(dataArray[i].title) < parseInt(dataArray[min].title)){
                 min = i;
             }
         }
@@ -931,7 +936,7 @@ async function insertionSort(dataArray){
         current = dataArray[sorted];
         j = sorted - 1;
 
-        while(j>= 0 && parseInt(current.textContent) < parseInt(dataArray[j].textContent)){
+        while(j>= 0 && parseInt(current.title) < parseInt(dataArray[j].title)){
             dataArray[j + 1] = dataArray[j]; // To shift all elements past the element
             j--;
         }

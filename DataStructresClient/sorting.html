@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <title>Sorting</title>
     <style>
+        html{
+            font-family: 'Roboto', sans-serif;
+        }
         body {
             background: linear-gradient(-45deg, purple, deeppink, darkblue, lightskyblue);
             background-size: 400% 400%;
@@ -26,13 +29,12 @@
         #Heading{
             align-items: center;
             text-align: center;
-            border: 2px solid black;
+            /* border: 2px solid black; */
             width: 100%;
             height: 270px;
             border-radius: 15px;
         }
         #back-button{
-            height: 10%;
             width: 9%;
         }
         .mainButton{
@@ -44,12 +46,11 @@
             color: white;
             border-radius: 8px;
             border-color: blue;
-            height: 10%;
+            height: 13%;
         }
         .mainButton:hover{
             box-shadow: 0 4px 8px rgba(0.4,0.4,0.4,0.4);
         }
-
         h1{
             font-family: monospace;
             font-size: 30px;
@@ -57,16 +58,17 @@
         #main-container{
             display: flex;
             height: 60%;
-            /* border: 2px solid black; */
             justify-content: center;
-            align-items: center;
         }
         #container{
-            border: 2px solid black;
+            /* border: 2px solid black; */
+            border-left: 2px solid black;
+            border-right: 2px solid black;
             width: 60%;
             height: 75%;
             display: flex;
             align-items: flex-end;
+            padding-top: 20px;
         }
         footer{
             text-align: center;
@@ -76,32 +78,49 @@
             font-family: monospace;
             color: white;
             border-radius: 8px;
-            border-color: white;
             height: 15%;
-            background: blue;
+            background-color: black; /* Green */
+            border: none; /* No border */
+            padding: 10px 20px; /* Padding for sizing */
+            font-size: 16px; /* Text size */
+            cursor: pointer; /* Cursor change on hover */
+            transition: all 0.3s ease; /* Smooth transitions */
         }
         #start-button:hover{
             box-shadow: 0 4px 8px rgba(0.4, 0.4, 0.4, 0.4);
-            background: green;
+            border-color: red;
+            background: lightgreen;
+            color: black;
         }
         #value-number{
             height: 10%;
             border-radius: 6px;
+        }
+        .Des-item{
+            display: inline-block;
+            padding: 10px;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
         }
     </style>
 </head>
 <body>
     <div id="Heading">
         <h1>Sorting Algorithms</h1>
+        <nav id="Description-Container">
+            <div class="Des-item">Created by: Adam Levere</div>
+            <div class="Des-item">GitHub: <a href="https://github.com/Adam1277?ocid=AIDcmmli8vlwie_SEM__k_Cj0KCQjw_qexBhCoARIsAFgBlev60OyYeTOD02C7Ec2-gK6dY8uKPm9W5VT_ekwLOFvEg4Z4jfbrEnQaAtWyEALw_wcB_k_">Adam1277</a></div>
+            <div class="Des-item">LinkedIn: <a href="https://www.linkedin.com/in/adam-levere-b97770273/">Adam Levere</a> </div>
+        </nav>
         <button id="back-button" class = "mainButton" type="button" onclick="returnToIndex()">Homepage</button>
         <button id="searchButton" class = "mainButton" type="button" onclick="searchingPage()">Searching</button><br>
-        <button id="load-container-button" class = "mainButton" type="button" onclick="loadContainerSort()">Load Container</button><br>
+        <button id="load-container-button" class = "mainButton" type="button" onclick="loadContainerSort()">Load Container</button>
+        <input id="value-number" type="text" placeholder="Number of Data Elements"><br>
         <button id="bubbleSort-button" class = "mainButton" type="button">Bubble Sort</button>
         <button id="selectionSort-button" class = "mainButton" type="button">Selection Sort</button>
         <button id="insertionSort-button" class = "mainButton" type="button">Insertion Sort</button>
         <button id="quickSort-button" class = "mainButton" type="button">Quick Sort</button><br>
         <button id="start-button">Start Sorting</button>
-        <input id="value-number" type="text" placeholder="Number of Data Elements">
     </div>
 
     <div id="main-container">
