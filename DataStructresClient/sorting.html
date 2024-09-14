@@ -73,7 +73,7 @@
         footer{
             text-align: center;
         }
-        #start-button{
+        .functional{
             margin: 10px;
             font-family: monospace;
             color: white;
@@ -86,7 +86,7 @@
             cursor: pointer; /* Cursor change on hover */
             transition: all 0.3s ease; /* Smooth transitions */
         }
-        #start-button:hover{
+        .functional:hover{
             box-shadow: 0 4px 8px rgba(0.4, 0.4, 0.4, 0.4);
             border-color: red;
             background: lightgreen;
@@ -101,6 +101,30 @@
             padding: 10px;
             text-align: center;
             font-family: 'Roboto', sans-serif;
+        }
+        .info-display{
+            font-family: cursive;
+            position: absolute;
+            padding-left: 30px;
+        }
+        #space{
+            padding-top: 200px;
+        }
+        #time-text{
+            border: 2px solid black;
+            width: 70px;
+            height: 70px;
+            position: absolute;
+            left: 60px;
+            top: 320px;
+        }
+        #space-text{
+            border: 2px solid black;
+            width: 70px;
+            height: 70px;
+            position: absolute;
+            left: 60px;
+            top: 520px;
         }
     </style>
 </head>
@@ -120,8 +144,16 @@
         <button id="selectionSort-button" class = "mainButton" type="button">Selection Sort</button>
         <button id="insertionSort-button" class = "mainButton" type="button">Insertion Sort</button>
         <button id="quickSort-button" class = "mainButton" type="button">Quick Sort</button><br>
-        <button id="start-button">Start Sorting</button>
+        <button id="slow-algo" class="functional">Slower</button>
+        <button id="start-button" class="functional">Start Sorting</button>
+        <button id="fast-algo" class="functional">Faster</button>
     </div>
+
+    <strong id="time" class = "info-display">Time Complexity:</strong>
+    <div id="time-text"></div>
+
+    <strong id="space" class = "info-display">Space Complexity:</strong>
+    <div id="space-text"></div>
 
     <div id="main-container">
         <div id="container"></div>

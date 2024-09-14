@@ -519,7 +519,7 @@ function linkedList(){
     let TextInput = document.createElement("input");
     TextInput.style.width = "100px";
     TextInput.type = "text";
-    TextInput.placeholder = "Index:";
+    TextInput.placeholder = "Index: or Data";
     TextInput.id = "InputIndex";
     TextIndex = TextInput;
     let NodeButtonContainer = document.getElementById("Node-Button-Container");
@@ -552,7 +552,7 @@ function linkedList(){
 
         // Node data text
         let textDiv = document.createElement("div");
-        textDiv.innerText = "Data at Index: " + counter;
+        textDiv.innerText = "Data";
         textDiv.style.width = "50%";
         textDiv.style.textAlign = "center";
 
@@ -788,11 +788,21 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("start-button").disabled = true;
 })
 
+function reloadOnNumChange(){
+
+}
+
 function loadContainerSort(){
     let container = document.getElementById("container");
     let dataArray = []; // For all data elements
     let numElements = document.getElementById("value-number").value;
     let elementWidth = 0;
+    let selected = "";
+    document.getElementById("load-container-button").disabled = true;
+
+    let bubble = document.getElementById("bubbleSort-button");
+    let selection = document.getElementById("selectionSort-button");
+    let insertion = document.getElementById("insertionSort-button");
 
     // To populate the container with the data
     for(let counter = 0; counter < numElements; counter++){
@@ -817,8 +827,10 @@ function loadContainerSort(){
     console.log("Container Loaded");
 
     document.getElementById("bubbleSort-button").addEventListener("click", function (){
+        selection.disabled = true;
+        insertion.disabled = true;
         document.getElementById("start-button").addEventListener("click", function (){
-            bubbleSort(dataArray).then(()=>{
+            bubbleSort(dataArray,speed).then(()=>{
                 console.log("Bubble Sort has completed");
             }).catch((error) =>{
                 console.log("Error during Bubble Sort Method");
@@ -827,8 +839,10 @@ function loadContainerSort(){
     })
 
     document.getElementById("selectionSort-button").addEventListener("click", function (){
+        bubble.disabled = true;
+        insertion.disabled = true;
         document.getElementById("start-button").addEventListener("click", function (){
-            selectionSort(dataArray).then(()=>{
+            selectionSort(dataArray,speed).then(()=>{
                 console.log("Selection Sort has completed");
             }).catch((error) =>{
                 console.log("Error during Selection Sort Method");
@@ -837,20 +851,40 @@ function loadContainerSort(){
     })
 
     document.getElementById("insertionSort-button").addEventListener("click", function (){
-        console.log("Insertion Sort Selected");
+        selection.disabled = true;
+        bubble.disabled = true;
         document.getElementById("start-button").addEventListener("click", function (){
-            insertionSort(dataArray).then(()=>{
+            insertionSort(dataArray,speed).then(()=>{
                 console.log("Insertion Sort has completed");
             }).catch((error) =>{
                 console.log("Error during Insertion Sort Method");
             });
         })
     })
+
+    // To reset on every change of the data element number
+    document.getElementById("value-number").addEventListener("input", function(){
+        window.location.reload();
+        document.getElementById("load-container-button").disabled = false;
+        selected = "";
+    })
 }
+let speed = 200;
+document.getElementById("slow-algo").addEventListener("click", function(){
+    console.log("Slow is clicked");
+    speed = speed + 20;
+    console.log(speed);
+})
+document.getElementById("fast-algo").addEventListener("click", function(){
+    console.log("fast is clicked");
+    speed = speed - 20;
+    console.log(speed);
+})
 
 async function bubbleSort(dataArray){
     // To create the bubble sort algorithm and use the .insertBefore keyword to swap divs
     let container = document.getElementById("container");
+    document.getElementById("image-time").textContent = "O(n)";
 
     console.log("BubbleSort Initiated!");
     let count = 0;
@@ -865,7 +899,7 @@ async function bubbleSort(dataArray){
             dataArray[dataArray.length - 1].style.backgroundColor = "transparent";
         }
         // To slow the algorithm after time progresses
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, speed));
         if (parseInt(dataArray[count].title) > parseInt(dataArray[count + 1].title)) {
             swapCount = 0;
             container.insertBefore(dataArray[count + 1], dataArray[count]);
@@ -900,9 +934,8 @@ async function selectionSort(dataArray) {
             }
         }
         dataArray[min].style.backgroundColor = "blue";
-        //dataArray[min].style.backgroundColor = "red";
         console.log("Step: " + step + ", Min: " + min);
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, speed));
         let temp = document.createElement("div");
         container.insertBefore(temp, dataArray[step]);
         container.insertBefore(dataArray[step], dataArray[min]);
@@ -946,7 +979,7 @@ async function insertionSort(dataArray){
         dataArray.innerHTML = '';
         dataArray.forEach(div => container.appendChild(div));
 
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, speed));
     }
     console.log("Insertion Sort end");
 }
