@@ -4,7 +4,7 @@
 function stacks(){
     // An array storing each UI's position for the box on the stack
     // Using the style.top = " px";
-    let TopPXArray = ["510px","450px","390px","330px","270px","210px"];
+    let TopPXArray = ["75%","68%","61%","54%","47%","40%"];
     let listOFNodes = [];
     let currentIndex = 0;
     let counter = 5;
@@ -120,19 +120,19 @@ function stacks(){
 
         // To clear the Data Structure if the stack is full
         //if (counter === 5){
-            //while (container.firstChild) {
-                //container.removeChild(mainStructure.firstChild);
-            //}
-            //listOFNodes = [];
-            //currentIndex = 0;
-            //counter = 5;
+        //while (container.firstChild) {
+        //container.removeChild(mainStructure.firstChild);
+        //}
+        //listOFNodes = [];
+        //currentIndex = 0;
+        //counter = 5;
         //}
 
         // Created Nodes not in the current Stack yet
         let box = document.createElement("div");
         box.style.display = "flex";
-        box.style.backgroundColor = "white";
-        box.style.height = "40px";
+        box.style.backgroundColor = "lightgrey";
+        box.style.height = "35px";
         box.style.width = "110px";
         box.innerText = "Data Node " + counter;
         box.style.lineHeight = "37px";
@@ -519,7 +519,7 @@ function linkedList(){
     let TextInput = document.createElement("input");
     TextInput.style.width = "100px";
     TextInput.type = "text";
-    TextInput.placeholder = "Index:";
+    TextInput.placeholder = "Index: or Data";
     TextInput.id = "InputIndex";
     TextIndex = TextInput;
     let NodeButtonContainer = document.getElementById("Node-Button-Container");
@@ -552,7 +552,7 @@ function linkedList(){
 
         // Node data text
         let textDiv = document.createElement("div");
-        textDiv.innerText = "Data at Index: " + counter;
+        textDiv.innerText = "Data";
         textDiv.style.width = "50%";
         textDiv.style.textAlign = "center";
 
@@ -784,134 +784,261 @@ function sortingPage(){
     window.location.href = "sorting.html";
 }
 
-async function bubbleSort(){
-    let container = document.getElementById("container");
+document.addEventListener("DOMContentLoaded", function(){
+    document.getElementById("start-button").disabled = true;
+})
 
-    // Fixed number of data, start with 8 elements
-    // Perform sorting on the data
-    // Have steps as numbers that can store movements of the data
-    let dataArray = [];
+function reloadOnNumChange(){
+
+}
+
+function loadContainerSort(){
+    let container = document.getElementById("container");
+    let dataArray = []; // For all data elements
+    let numElements = document.getElementById("value-number").value;
+    let elementWidth = 0;
+    let selected = "";
+    document.getElementById("load-container-button").disabled = true;
+
+    let bubble = document.getElementById("bubbleSort-button");
+    let selection = document.getElementById("selectionSort-button");
+    let insertion = document.getElementById("insertionSort-button");
 
     // To populate the container with the data
-    for(let counter = 0; counter < 30; counter++){
+    for(let counter = 0; counter < numElements; counter++){
         let data = document.createElement("div");
-        data.style.width = "4%";
-        data.style.border = "2px solid black";
-        let num = Math.floor(Math.random() * 30);
+        elementWidth = 120 / numElements; // Container width is 80, so we divide by number of elements
+        data.style.width = elementWidth.toString() + "%";
+        let num = Math.floor(Math.random() * (29 - 2 + 1)) + 2;
+        if(numElements <= 62){
+            data.textContent = num;
+            data.style.border = "2px solid black";
+        }else{
+            data.style.border = "0.5px solid black";
+        }
+        data.title = num // To assign a random number
         data.style.height = num * 3.3333333 + "%";
-        data.textContent = num // To assign a random number
         data.style.textAlign = "center";
         dataArray.push(data);
         container.appendChild(data);
     }
 
-    // To create the bubble sort algorithm and use the .insertBefore keyword to swap divs
+    document.getElementById("start-button").disabled = false;
+    console.log("Container Loaded");
 
-    let startSorting = document.getElementById("start-button");
+    document.getElementById("bubbleSort-button").addEventListener("click", function (){
+        selection.disabled = true;
+        insertion.disabled = true;
+        document.getElementById("start-button").addEventListener("click", function (){
+            bubbleSort(dataArray,speed).then(()=>{
+                console.log("Bubble Sort has completed");
+            }).catch((error) =>{
+                console.log("Error during Bubble Sort Method");
+            });
+        })
+    })
 
-    startSorting.addEventListener("click", async function () {
-        console.log("BubbleSort Initiated!");
-        let swapped = false;
-        let count = 0;
-        let loopCount = 0;
-        let swapCount = 0;
-        console.log("Data Array Length = " + dataArray.length);
-        do {
-            if (count === dataArray.length - 1) {
-                count = 0;
-                swapCount = 0;
-                console.log("Count resetting");
-                dataArray[dataArray.length - 1].style.backgroundColor = "transparent";
-            }
-            await new Promise(resolve => setTimeout(resolve, 100 - loopCount/5));
-            console.log("Data element: " + dataArray[count].textContent);
-            if (parseInt(dataArray[count].textContent) > parseInt(dataArray[count + 1].textContent)) {
-                console.log("Swap!!!");
-                swapCount = 0;
-                container.insertBefore(dataArray[count + 1], dataArray[count]);
-                let temp = dataArray[count + 1];
-                dataArray[count + 1] = dataArray[count];
-                dataArray[count] = temp;
-            }else{
-                swapCount++;
-            }
-            if(swapCount === dataArray.length - 1){
-                swapped = true;
-            }
-            console.log("Loop Count: " + loopCount);
-            console.log("Count: " + count);
-            loopCount++;
-            dataArray[count].style.backgroundColor = "transparent";
-            count++;
-            dataArray[count].style.backgroundColor = "red";
-        } while (!swapped);
-        dataArray[dataArray.length - 1].style.backgroundColor = "transparent";
-        console.log("BubbleSort completed");
-    });
+    document.getElementById("selectionSort-button").addEventListener("click", function (){
+        bubble.disabled = true;
+        insertion.disabled = true;
+        document.getElementById("start-button").addEventListener("click", function (){
+            selectionSort(dataArray,speed).then(()=>{
+                console.log("Selection Sort has completed");
+            }).catch((error) =>{
+                console.log("Error during Selection Sort Method");
+            });
+        })
+    })
 
-}
+    document.getElementById("insertionSort-button").addEventListener("click", function (){
+        selection.disabled = true;
+        bubble.disabled = true;
+        document.getElementById("start-button").addEventListener("click", function (){
+            insertionSort(dataArray,speed).then(()=>{
+                console.log("Insertion Sort has completed");
+            }).catch((error) =>{
+                console.log("Error during Insertion Sort Method");
+            });
+        })
+    })
 
-async function selectionSort() {
-    let containerMain1 = document.getElementById("container");
-    let dataArray123 = [];
-
-    for (let counter = 0; counter < 9; counter++) {
-        let data1 = document.createElement("div");
-        data1.style.width = "5%";
-        data1.style.border = "2px solid black";
-        let num = Math.floor(Math.random() * 30);
-        data1.style.height = num * 3.3333333 + "%";
-        data1.textContent = num // To assign a random number
-        data1.style.textAlign = "center";
-        dataArray123.push(data1);
-        containerMain1.appendChild(data1);
-    }
-
-    document.getElementById("start-button").addEventListener("click", async function () {
-
+    // To reset on every change of the data element number
+    document.getElementById("value-number").addEventListener("input", function(){
+        window.location.reload();
+        document.getElementById("load-container-button").disabled = false;
+        selected = "";
     })
 }
+let speed = 200;
+document.getElementById("slow-algo").addEventListener("click", function(){
+    console.log("Slow is clicked");
+    speed = speed + 20;
+    console.log(speed);
+})
+document.getElementById("fast-algo").addEventListener("click", function(){
+    console.log("fast is clicked");
+    speed = speed - 20;
+    console.log(speed);
+})
 
-function insertionSort(){
-    let containerMain = document.getElementById("container");
-    let dataArray1 = [];
+async function bubbleSort(dataArray){
+    // To create the bubble sort algorithm and use the .insertBefore keyword to swap divs
+    let container = document.getElementById("container");
+    document.getElementById("image-time").textContent = "O(n)";
 
-    for (let counter = 0; counter < 9; counter++) {
-        let data3 = document.createElement("div");
-        data3.style.width = "5%";
-        data3.style.border = "2px solid black";
-        let um = Math.floor(Math.random() * 30);
-        data3.style.height = num * 3.3333333 + "%";
-        data3.textContent = num // To assign a random number
-        data3.style.textAlign = "center";
-        dataArray1.push(data3);
-        containerMain.appendChild(data3);
-    }
+    console.log("BubbleSort Initiated!");
+    let count = 0;
+    let loopCount = 0;
+    let swapCount = 0;
+    console.log("Data Array Length = " + dataArray.length);
+    do {
+        if (count === dataArray.length - 1) {
+            count = 0;
+            swapCount = 0;
+            console.log("Count resetting");
+            dataArray[dataArray.length - 1].style.backgroundColor = "transparent";
+        }
+        // To slow the algorithm after time progresses
+        await new Promise(resolve => setTimeout(resolve, speed));
+        if (parseInt(dataArray[count].title) > parseInt(dataArray[count + 1].title)) {
+            swapCount = 0;
+            container.insertBefore(dataArray[count + 1], dataArray[count]);
+            let temp = dataArray[count + 1];
+            dataArray[count + 1] = dataArray[count];
+            dataArray[count] = temp;
+        }else{
+            swapCount++;
+        }
+        loopCount++;
+        dataArray[count].style.backgroundColor = "transparent";
+        count++;
+        dataArray[count].style.backgroundColor = "red";
+    } while (swapCount !== dataArray.length - 1);
+    // To account for last node being coloured
+    dataArray[dataArray.length - 1].style.backgroundColor = "transparent";
+    console.log("BubbleSort completed");
+}
 
-    document.getElementById("start-button").addEventListener("click", async function () {
-        let count = 1;
-        let tempCount = 0;
+async function selectionSort(dataArray) {
+    console.log("Selection Sort Selected");
+    let container = document.getElementById("container");
+    let size = dataArray.length;
 
-        for(let sorted = 0; sorted < dataArray1.length; sorted++){
-            if(parseInt(dataArray1[sorted].textContent) > parseInt(dataArray1[count].textContent)){
-                tempCount = count;
-                count = 0;
-                while(count !== sorted + 1){
-                    if(dataArray1[count] > dataArray1[count+1]){
-                        containerMain.insertBefore(dataArray1[count], dataArray1[count+1]);
-                        let temp = dataArray1[count + 1];
-                        dataArray1[count + 1] = dataArray1[count];
-                        dataArray1[count] = temp;
-                    }
-                    count++;
-                }
-                count = tempCount;
-                count++;
+    for(let step = 0; step < size - 1; step++){
+        let min = step;
+        dataArray[step].style.backgroundColor = "transparent";
+
+        for(let i = step + 1; i < size; i++){
+            if(parseInt(dataArray[i].title) < parseInt(dataArray[min].title)){
+                min = i;
             }
         }
+        dataArray[min].style.backgroundColor = "blue";
+        console.log("Step: " + step + ", Min: " + min);
+        await new Promise(resolve => setTimeout(resolve, speed));
+        let temp = document.createElement("div");
+        container.insertBefore(temp, dataArray[step]);
+        container.insertBefore(dataArray[step], dataArray[min]);
+        container.insertBefore(dataArray[min], temp);
+        container.removeChild(temp);
+
+        dataArray[step].style.backgroundColor = "transparent";
+
+        //dataArray[step].style.backgroundColor = "transparent";
+
+        // Correct implementation of swapping divs in the Array
+        let tempArray = dataArray[step];
+        dataArray[step] = dataArray[min];
+        dataArray[min] = tempArray;
+    }
+
+    console.log("Selection Sort Completed");
+}
+
+async function insertionSort(dataArray){
+    let container = document.getElementById("container");
+
+    let length = dataArray.length;
+    let current = dataArray[0]; // First number in the list
+    let j = 0;
+
+    console.log("Insertion Sort Started");
+
+    for(let sorted = 1; sorted < length; sorted++){
+        dataArray[sorted].style.backgroundColor = "orange";
+        current = dataArray[sorted];
+        j = sorted - 1;
+
+        while(j>= 0 && parseInt(current.title) < parseInt(dataArray[j].title)){
+            dataArray[j + 1] = dataArray[j]; // To shift all elements past the element
+            j--;
+        }
+        dataArray[j + 1] = current;
+        dataArray[sorted].style.backgroundColor = "transparent";
+
+        dataArray.innerHTML = '';
+        dataArray.forEach(div => container.appendChild(div));
+
+        await new Promise(resolve => setTimeout(resolve, speed));
+    }
+    console.log("Insertion Sort end");
+}
+
+async function quickSort(){
+}
+
+function loadContainerSearch(){
+    let container1 = document.getElementById("container-search");
+    let dataArray = []; // For all data elements
+
+    // To populate the container with the data
+    for(let counter = 0; counter < 40; counter++){
+        let data1 = document.createElement("div");
+        data1.style.width = "2.5%";
+        let num = Math.floor(Math.random() * (29 - 2 + 1)) + 2;
+        data1.textContent = num // To assign a random number
+        data1.style.border = "3px solid rgba(255, 255, 255, 0.8)";
+        data1.style.color = "white";
+        data1.style.height = num * 3.3333333 + "%";
+        data1.style.textAlign = "center";
+        dataArray.push(data1);
+        container1.appendChild(data1);
+    }
+
+    console.log("Search Container Loaded");
+
+    document.getElementById("linear-search-button").addEventListener("click", function (){
+        console.log("Linear Search Selected");
+        linearSearch(dataArray).then(()=>{
+            console.log("Linear Search has completed");
+        }).catch((error) =>{
+            console.log("Error in Linear Search Method");
+        });
     })
 }
 
-function quickSort(){
+async function linearSearch(dataArray){
+    let container = document.getElementById("container");
 
+    let target = document.getElementById("num-input").value;
+    target = parseInt(target, 10);
+
+    console.log("Linear Search Started");
+
+    for(let i = 0; i < dataArray.length; i++){
+        await new Promise(resolve => setTimeout(resolve, 100));
+        if(parseInt(dataArray[i].textContent) === target){
+            console.log("Target Found");
+            dataArray[i].style.background = "green";
+        }else{
+            dataArray[i].style.border = "3px solid orange";
+        }
+        console.log("Element: " + parseInt(dataArray[i].textContent));
+    }
+
+    console.log("Linear Search Complete");
+}
+
+function searchingPage(){
+    window.location.href = "searching.html";
 }
