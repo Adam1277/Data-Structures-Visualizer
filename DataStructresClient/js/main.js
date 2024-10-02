@@ -514,7 +514,7 @@ function linkedList(){
     let CreateNode = document.getElementById("Create-Node");
     let TextIndex = "";
 
-    document.getElementById("text-area").innerText = "";
+    let areaMain = document.getElementById("text-area").innerText = "";
 
     let TextInput = document.createElement("input");
     TextInput.style.width = "100px";
@@ -527,6 +527,9 @@ function linkedList(){
 
 
     CreateNode.addEventListener("click", function(){
+        let Input = document.getElementById("InputIndex");
+        let InputValue = Input.value.trim();
+        console.log("Index received as " + InputValue);
 
         if(counter === 0){
             area.value = "Each Node has its data value (Integer, String, Class reference, Ect...)"
@@ -552,7 +555,13 @@ function linkedList(){
 
         // Node data text
         let textDiv = document.createElement("div");
-        textDiv.innerText = "Data";
+
+        if(InputValue === ""){
+            textDiv.innerText = "Data";
+        }else{
+            textDiv.innerText = InputValue;
+        }
+
         textDiv.style.width = "50%";
         textDiv.style.textAlign = "center";
 
@@ -598,6 +607,7 @@ function linkedList(){
             PointerArray[counter-1].innerText = "Address at Node index " + (counter);
         }
         counter++;
+        console.log("Counter: " + counter);
     })
 
     SearchButton.addEventListener("click", function (){
@@ -605,20 +615,23 @@ function linkedList(){
         let InputValue = Input.value.trim();
         console.log("Index received as " + InputValue);
 
-        // To show a classic iterative search to find that index
-        for(let i = 0; i-1 < InputValue; i++){
-            setTimeout(()=>{
-                document.querySelector("#Node" + i).style.borderColor = "red";
-            }, 1000 * i);
-        }
+        // To Avoid looking for null elements
+        if(InputValue <= NodeArray.length){
+            // To show a classic iterative search to find that index
+            for(let i = 0; i < InputValue; i++){
+                setTimeout(()=>{
+                    document.querySelector("#Node" + i).style.borderColor = "red";
+                }, 1000 * i);
+            }
 
-        /**
-         * To return the border on all previous nodes to black
-         */
-        for(let x = 0; x < InputValue; x++){
-            setTimeout(() => {
-                document.querySelector("#Node" + x).style.borderColor = "black";
-            }, 4000);
+            // To return the border on all previous nodes to black
+            for(let x = 0; x < InputValue; x++){
+                setTimeout(() => {
+                    document.querySelector("#Node" + x).style.borderColor = "black";
+                }, 4000);
+            }
+        }else{
+            areaMain = "Please select a correct index to search for!!";
         }
 
     })
@@ -810,7 +823,7 @@ function loadContainerSort(){
         elementWidth = 120 / numElements; // Container width is 80, so we divide by number of elements
         data.style.width = elementWidth.toString() + "%";
         let num = Math.floor(Math.random() * (29 - 2 + 1)) + 2;
-        if(numElements <= 62){
+        if(numElements <= 50){
             data.textContent = num;
             data.style.border = "2px solid black";
         }else{
@@ -869,6 +882,7 @@ function loadContainerSort(){
         selected = "";
     })
 }
+
 let speed = 200;
 document.getElementById("slow-algo").addEventListener("click", function(){
     console.log("Slow is clicked");
@@ -884,7 +898,6 @@ document.getElementById("fast-algo").addEventListener("click", function(){
 async function bubbleSort(dataArray){
     // To create the bubble sort algorithm and use the .insertBefore keyword to swap divs
     let container = document.getElementById("container");
-    document.getElementById("image-time").textContent = "O(n)";
 
     console.log("BubbleSort Initiated!");
     let count = 0;
